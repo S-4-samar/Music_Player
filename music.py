@@ -1,22 +1,17 @@
 import os
 import streamlit as st
-import pygame
 import base64
-
-# Initialize Pygame mixer
-pygame.mixer.init()
 
 # Paths
 base_dir = os.path.dirname(os.path.abspath(__file__))
 songs_dir = os.path.join(base_dir, "songs")
-css_file = os.path.join(base_dir, "static", "style.css")
 album_art_path = os.path.join(base_dir, "static", "album_art.png")
 
 # === PAGE CONFIG ===
 st.set_page_config(page_title="🎧 Smart Music Player", layout="centered")
 st.markdown("<h2 style='text-align: center; color: white;'>🚀 Hyper Music Player</h2>", unsafe_allow_html=True)
 
-# === SESSION STATE INIT ===
+# === SESSION STATE ===
 if "song_index" not in st.session_state:
     st.session_state.song_index = 0
 if "is_playing" not in st.session_state:
@@ -24,20 +19,17 @@ if "is_playing" not in st.session_state:
 
 # === LOAD SONGS ===
 if not os.path.exists(songs_dir):
-    st.error(f"❌ Songs folder not found at: {songs_dir}")
+    st.error("❌ Songs folder not found.")
     st.stop()
 
 songs = [f for f in os.listdir(songs_dir) if f.endswith(".mp3")]
 if not songs:
-    st.error("❌ No MP3 files found in /songs folder.")
+    st.error("❌ No MP3 files found.")
     st.stop()
 
-# === CSS (responsive tweaks added) ===
-responsive_css = """
+# === CUSTOM CSS ===
+st.markdown("""
 <style>
-body {
-    overflow-x: hidden;
-}
 .visualizer {
     display: flex;
     justify-content: center;
@@ -63,14 +55,6 @@ body {
 @keyframes bounce {
     0%, 100% { height: 20px; }
     50% { height: 80px; }
-}
-
-[data-testid="stSidebar"] > div:first-child {
-    background: linear-gradient(135deg, #111, #1f0036);
-    color: white;
-    padding: 20px;
-    border-right: 2px solid cyan;
-    box-shadow: 0 0 20px rgba(0,255,255,0.3);
 }
 
 .corner-stripes {
@@ -108,35 +92,19 @@ body {
     animation: moveStripe 1.2s infinite alternate !important;
     opacity: 0.7 !important;
 }
-
-/* Responsive Album Art */
 .album-art img {
     width: 90%;
     max-width: 300px;
     border-radius: 20px;
     box-shadow: 0 5px 20px rgba(0,255,255,0.3);
 }
-
-/* Playlist */
 ul {
     padding-left: 20px;
 }
-
-/* Mobile tweaks */
-@media screen and (max-width: 600px) {
-    .visualizer {
-        height: 60px;
-    }
-    .bar {
-        width: 4px;
-        margin: 0 1px;
-    }
-}
 </style>
-"""
-st.markdown(responsive_css, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
-# === CORNER STRIPES ===
+# === STRIPES ===
 stripe_class = "corner-stripes blinking" if st.session_state.is_playing else "corner-stripes"
 st.markdown(f"""
 <div class="{stripe_class}">
@@ -150,19 +118,21 @@ st.markdown(f"""
 
 # === CURRENT SONG ===
 current_song = songs[st.session_state.song_index]
+current_song_path = os.path.join(songs_dir, current_song)
 
 # === ALBUM ART ===
 if os.path.exists(album_art_path):
-    img_data = base64.b64encode(open(album_art_path, "rb").read()).decode()
-    st.markdown(
-        f"""
-        <div class='album-art' style='text-align: center;'>
-            <img src='data:image/png;base64,{img_data}' alt='Album Art'>
-        </div>
-        """, unsafe_allow_html=True
-    )
+    with open(album_art_path, "rb") as img_file:
+        img_data = base64.b64encode(img_file.read()).decode()
+        st.markdown(
+            f"""
+            <div class='album-art' style='text-align: center;'>
+                <img src='data:image/png;base64,{img_data}' alt='Album Art'>
+            </div>
+            """, unsafe_allow_html=True
+        )
 
-# === VISUALIZER BARS ===
+# === VISUALIZER ===
 if st.session_state.is_playing:
     st.markdown("""
     <div class='visualizer'>
@@ -177,29 +147,26 @@ if st.session_state.is_playing:
 # === NOW PLAYING ===
 st.markdown(f"<h4 style='color: cyan;'>🎵 Now Playing: {current_song}</h4>", unsafe_allow_html=True)
 
+# === AUDIO PLAYER ===
+with open(current_song_path, "rb") as f:
+    st.audio(f.read(), format="audio/mp3")
+
 # === CONTROLS ===
 col1, col2, col3 = st.columns(3)
 
-if col1.button("⏮️ Previous", key="prev"):
+if col1.button("⏮️ Previous"):
     st.session_state.song_index = (st.session_state.song_index - 1) % len(songs)
-    st.session_state.is_playing = False
-
-if col2.button("▶️ Play", key="play"):
-    pygame.mixer.music.load(os.path.join(songs_dir, current_song))
-    pygame.mixer.music.play()
     st.session_state.is_playing = True
 
-if col3.button("⏹️ Stop", key="stop"):
-    pygame.mixer.music.stop()
+if col2.button("▶️ Play"):
+    st.session_state.is_playing = True
+
+if col3.button("⏹️ Stop"):
     st.session_state.is_playing = False
 
-if st.button("⏭️ Next", key="next"):
+if st.button("⏭️ Next"):
     st.session_state.song_index = (st.session_state.song_index + 1) % len(songs)
-    st.session_state.is_playing = False
-
-# === VOLUME SLIDER ===
-volume = st.slider("🔊 Volume", 0, 100, 70)
-pygame.mixer.music.set_volume(volume / 100)
+    st.session_state.is_playing = True
 
 # === PLAYLIST ===
 with st.expander("📂 Playlist"):
@@ -209,16 +176,16 @@ with st.expander("📂 Playlist"):
         st.markdown(f"<li style='color: white;'>{icon}{song}</li>", unsafe_allow_html=True)
     st.markdown("</ul>", unsafe_allow_html=True)
 
-# === SIDEBAR INFO ===
+# === SIDEBAR ===
 with st.sidebar:
     st.markdown("## 🎶 About This App")
     st.markdown("""
     **Hyper Music Player** is a neon-styled, club-vibe music player built with:
 
     - 🐍 **Python 3**
-    - 🎧 **Pygame**
     - 🌐 **Streamlit**
-    - 🖼️ **Base64 Album Art Embedding**
+    - 🎧 **HTML5 Audio Support**
+    - 🖼️ **Base64 Album Art**
     
     ---
     **👨‍💻 Created by:** [Samar Abbas](https://www.linkedin.com/in/samar-abbas-773074278/)  
