@@ -1,0 +1,242 @@
+/* === Base Body Styling === */
+body {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  animation: bgPulse 6s infinite alternate;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  color: white;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+/* === Background Animation === */
+@keyframes bgPulse {
+  0% { background-color: #0f2027; }
+  50% { background-color: #1a0033; }
+  100% { background-color: #203a43; }
+}
+
+/* === Neon Vibe Text When Music Plays === */
+.neon-glow {
+  text-align: center;
+  font-size: 24px;
+  margin: 20px 0;
+  padding: 15px;
+  animation: pulse 1s infinite;
+  color: #00ffff;
+  text-shadow:
+    0 0 5px #0ff,
+    0 0 10px #0ff,
+    0 0 20px #0ff,
+    0 0 40px #0ff;
+}
+
+@keyframes pulse {
+  0%   { text-shadow: 0 0 5px #0ff; }
+  50%  { text-shadow: 0 0 25px #00ffff, 0 0 40px #00ffff; }
+  100% { text-shadow: 0 0 5px #0ff; }
+}
+
+/* === Club Light Bars === */
+.club-bars {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  height: 100px;
+  gap: 6px;
+  margin: 20px auto;
+  animation: bounce 0.8s infinite ease-in-out;
+}
+.club-bars div {
+  width: 8px;
+  height: 30px;
+  background: #00ffff;
+  box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+  animation: bounce 1s infinite ease-in-out;
+}
+.club-bars div:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.club-bars div:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.club-bars div:nth-child(4) {
+  animation-delay: 0.3s;
+}
+.club-bars div:nth-child(5) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(2); }
+}
+
+/* === Headings === */
+h2 {
+  font-size: 26px;
+  color: cyan;
+  margin-bottom: 5px;
+}
+h4 {
+  font-weight: normal;
+  color: #00ffb3;
+  margin-top: 0;
+}
+
+/* === Music Player Container === */
+.player {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(0, 255, 255, 0.2);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  width: 360px;
+  margin: 50px auto;
+  padding: 30px;
+  box-shadow: 0 10px 40px rgba(0, 255, 255, 0.15);
+}
+
+/* === Album Art Styling === */
+.album-art {
+  background: linear-gradient(45deg, #a03af6, #fc6076);
+  border-radius: 20px;
+  height: 200px;
+  width: 200px;
+  margin: 0 auto 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 5px 20px rgba(255, 255, 255, 0.1);
+  animation: rotateArt 8s linear infinite;
+}
+
+@keyframes rotateArt {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.album-art i {
+  font-size: 60px;
+  color: white;
+}
+
+/* === Song Info === */
+.song-info h2 {
+  margin: 10px 0 5px;
+}
+.song-info p {
+  font-size: 14px;
+  color: #ccc;
+  margin: 0;
+}
+
+/* === Control Buttons === */
+.controls button {
+  background: white;
+  color: #00a8a8;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 18px;
+  margin: 0 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 255, 255, 0.2);
+  transition: transform 0.2s, background 0.3s;
+}
+.controls button:hover {
+  transform: scale(1.1);
+  background: #00ffea;
+  color: black;
+}
+
+/* === Volume Slider === */
+.volume-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+.volume-control input[type='range'] {
+  width: 100px;
+}
+
+/* === Progress Bar & Time Display === */
+.progress-bar {
+  width: 80%;
+  margin: 15px auto;
+}
+.time {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin: 0 auto;
+  font-size: 12px;
+  color: #ccc;
+}
+/* === Bigger Neon Corner Glow Effect ===
+.corner-vibe {
+  position: fixed;
+  top: -200px;
+  right: -200px;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(0,255,255,0.25) 0%, rgba(0,0,0,0) 75%);
+  border-radius: 50%;
+  z-index: 0;
+  animation: rotateGlow 16s linear infinite;
+  pointer-events: none;
+  filter: blur(80px);
+  opacity: 0.9;
+}
+
+@keyframes rotateGlow {
+  0% {
+    transform: rotate(0deg) translateX(0);
+  }
+  100% {
+    transform: rotate(360deg) translateX(0);
+  }
+} */
+/* === NEON STRIPES FROM TOP-RIGHT CORNER === */
+.corner-stripes {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 100vw;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.stripe {
+  position: absolute;
+  right: 0;
+  height: 4px;
+  width: 400px;
+  background: linear-gradient(90deg, cyan, transparent);
+  border-radius: 10px;
+  opacity: 0.5;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Add animation for blinking (when playing) */
+.blinking .stripe {
+  animation: blink 1.5s infinite ease-in-out;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0.3; transform: translateX(0); }
+  50% { opacity: 1; transform: translateX(-20px); }
+}
+
+/* Different delays for each stripe */
+.stripe:nth-child(1) { top: 10%; animation-delay: 0s; }
+.stripe:nth-child(2) { top: 20%; animation-delay: 0.3s; }
+.stripe:nth-child(3) { top: 30%; animation-delay: 0.6s; }
+.stripe:nth-child(4) { top: 40%; animation-delay: 0.9s; }
+.stripe:nth-child(5) { top: 50%; animation-delay: 1.2s; }
+
+
