@@ -81,18 +81,19 @@ st.markdown(f"<h4 style='color: cyan;'>🎵 Now Playing: {current_song}</h4>", u
 # === STREAMLIT AUDIO PLAYER ===
 st.audio(audio_bytes, format='audio/mp3', start_time=0)
 
-# === CONTROLS (Side-by-side layout) ===
-col1, col2, col3 = st.columns([1, 6, 1])  # Adjust spacing
+# === CONTROLS (Previous & Next on same line) ===
+col1, spacer, col2 = st.columns([1, 5, 1])
 
 with col1:
     if st.button("⏮️ Previous", key="prev"):
         st.session_state.song_index = (st.session_state.song_index - 1) % len(songs)
         st.session_state.is_playing = False
 
-with col3:
+with col2:
     if st.button("⏭️ Next", key="next"):
         st.session_state.song_index = (st.session_state.song_index + 1) % len(songs)
         st.session_state.is_playing = False
+
 
 
 # === PLAYLIST ===
