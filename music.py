@@ -140,36 +140,65 @@ if os.path.exists(album_art_path):
         </div>
     """, unsafe_allow_html=True)
     st.markdown("""
-    <style>
-    .pulse-circle {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 280px;
-        height: 280px;
-        border-radius: 50%;
-        background: rgba(0, 255, 255, 0.1);
-        box-shadow: 0 0 20px cyan, 0 0 40px cyan, 0 0 80px cyan;
-        animation: pulseBeat 2s infinite ease-in-out;
-        z-index: 1;
-    }
+<style>
+/* === Neon Stars Background === */
+.neon-stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -5;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(ellipse at center, #050011 0%, #000000 100%);
+    overflow: hidden;
+}
+.neon-stars .star {
+    position: absolute;
+    background: cyan;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    box-shadow: 0 0 6px cyan;
+    animation: blink 2s infinite ease-in-out;
+}
+@keyframes blink {
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.8); }
+}
 
-    @keyframes pulseBeat {
-        0%, 100% {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 0.7;
-        }
-        50% {
-            transform: translate(-50%, -50%) scale(1.3);
-            opacity: 0.3;
-        }
-    }
-    </style>
-    """, unsafe_allow_html=True)
+/* === Pulse Circle Around Album Art === */
+.album-wrapper {
+    position: relative;
+    display: inline-block;
+}
+.pulse-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: rgba(0, 255, 255, 0.08);
+    box-shadow: 0 0 20px cyan, 0 0 40px cyan, 0 0 80px cyan;
+    animation: pulseBeat 2s infinite ease-in-out;
+    z-index: 1;
+}
+@keyframes pulseBeat {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+    50% { transform: translate(-50%, -50%) scale(1.3); opacity: 0.3; }
+}
+</style>
 
+<div class="neon-stars">
+""" +
+"\n".join([
+    f'<div class="star" style="top:{i*7 % 100}vh; left:{(i*i*3) % 100}vw; animation-delay:{(i % 7)*0.3}s;"></div>'
+    for i in range(50)
+]) + "</div>"
+, unsafe_allow_html=True)
 
-
+    
 # === DJ Visualizer ===
 # === VISUALIZER (Always shows under audio) ===
 st.markdown("""
