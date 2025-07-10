@@ -139,8 +139,6 @@ if os.path.exists(album_art_path):
             <img src='data:image/png;base64,{img_data}' alt='Album Art'>
         </div>
     """, unsafe_allow_html=True)
-    
-
     st.markdown("""
     <style>
     .pulse-circle {
