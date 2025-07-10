@@ -165,12 +165,34 @@ st.markdown("""
 # === ALBUM ART ===
 if os.path.exists(album_art_path):
     img_data = base64.b64encode(open(album_art_path, "rb").read()).decode()
-    spin_class = "spin" if st.session_state.is_playing else ""
     st.markdown(f"""
-        <div class='album-art {spin_class}'>
-            <img src='data:image/png;base64,{img_data}' alt='Album Art'>
-        </div>
+    <div style="
+        width: 220px;
+        height: 220px;
+        margin: 0 auto;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 6px solid rgba(0,255,255,0.3);
+        box-shadow: 0 0 30px rgba(0,255,255,0.6);
+        animation: spin 8s linear infinite;
+    ">
+        <img src="data:image/png;base64,{img_data}" style="
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+        ">
+    </div>
+
+    <style>
+    @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    </style>
     """, unsafe_allow_html=True)
+
 
     
     
