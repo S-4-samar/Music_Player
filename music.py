@@ -6,9 +6,12 @@ import base64
 st.set_page_config(page_title="🎷 Smart Music Player", layout="centered")
 st.markdown("<h2 style='text-align: center; color: white;'>🚀 Hyper Music Player</h2>", unsafe_allow_html=True)
 
-# === SESSION STATE INIT ===
+# === SESSION STATE INIT (important to avoid AttributeError) ===
 if "song_index" not in st.session_state:
     st.session_state.song_index = 0
+if "is_playing" not in st.session_state:
+    st.session_state.is_playing = False
+
 
 # === Paths ===
 base_dir = os.path.dirname(os.path.abspath(__file__))
