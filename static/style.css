@@ -9,6 +9,25 @@ body {
   text-align: center;
   overflow-x: hidden;
 }
+.inline-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 4px; /* Reduced gap */
+    margin: 10px 0; /* Reduced vertical margin */
+    flex-wrap: wrap; /* Helps mobile layout */
+}
+.inline-buttons > div {
+    flex: 1 1 48%; /* Each button takes ~48% */
+}
+button[kind="secondary"] {
+    background-color: cyan !important;
+    color: black !important;
+    font-weight: bold;
+    border-radius: 10px !important;
+    box-shadow: 0 0 10px cyan;
+    width: 100%; /* Make buttons fill their column */
+}
+
 
 /* === Background Animation === */
 @keyframes bgPulse {
