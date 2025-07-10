@@ -96,11 +96,12 @@ st.markdown("""
 
 # === HANDLE BUTTON ACTIONS ===
 if st.session_state.get("button_submitted") != True:
-    if st.experimental_get_query_params().get("next"):
+    params = st.query_params
+    if "next" in params:
         st.session_state.song_index = (st.session_state.song_index + 1) % len(songs)
         st.session_state.is_playing = False
         st.session_state.button_submitted = True
-    elif st.experimental_get_query_params().get("prev"):
+    elif "prev" in params:
         st.session_state.song_index = (st.session_state.song_index - 1) % len(songs)
         st.session_state.is_playing = False
         st.session_state.button_submitted = True
