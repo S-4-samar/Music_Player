@@ -90,7 +90,7 @@ with col1:
 
 with col2:
     if st.button("⏮️ Previous", key="prev"):
-        st.session_state.song_index = (st.session_state.song_index - 1) % len(songs)
+        st.session_state.song_index = (st.session_state.song_index + 1) % len(songs)
         st.session_state.is_playing = False
 
 
