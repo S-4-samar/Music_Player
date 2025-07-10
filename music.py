@@ -83,7 +83,7 @@ st.audio(audio_bytes, format='audio/mp3', start_time=0)
 
 # === CONTROLS (Previous & Next on same line) ===
 # === CONTROLS (Previous & Next on same line) ===
-col1, spacer, col2 = st.columns([1, 5, 1])
+col1, spacer, col2 = st.columns([1, 2, 1])
 with col1:
     if st.button("⏭️ Next", key="next"):
         st.session_state.song_index = (st.session_state.song_index + 1) % len(songs)
@@ -93,6 +93,7 @@ with col2:
     if st.button("⏮️ Prev", key="prev"):
         st.session_state.song_index = (st.session_state.song_index - 1) % len(songs)
         st.session_state.is_playing = False
+        
 # === PLAYLIST ===
 with st.expander("📂 Playlist"):
     st.markdown("<ul>", unsafe_allow_html=True)
