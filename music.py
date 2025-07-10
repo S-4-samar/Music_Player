@@ -139,6 +139,36 @@ if os.path.exists(album_art_path):
             <img src='data:image/png;base64,{img_data}' alt='Album Art'>
         </div>
     """, unsafe_allow_html=True)
+    st.markdown("""
+<style>
+.pulse-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: rgba(0, 255, 255, 0.1);
+    box-shadow: 0 0 20px cyan, 0 0 40px cyan, 0 0 80px cyan;
+    animation: pulseBeat 2s infinite ease-in-out;
+    z-index: -1;
+}
+
+@keyframes pulseBeat {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.7;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.3);
+        opacity: 0.3;
+    }
+}
+</style>
+<div class="pulse-circle"></div>
+""", unsafe_allow_html=True)
+
 
 # === DJ Visualizer ===
 # === VISUALIZER (Always shows under audio) ===
