@@ -89,8 +89,8 @@ with col1:
         st.session_state.is_playing = False
 
 with col2:
-    if st.button("⏮️ Previous", key="prev"):
-        st.session_state.song_index = (st.session_state.song_index + 1) % len(songs)
+    if st.button("⏮️ Prev", key="prev"):
+        st.session_state.song_index = (st.session_state.song_index - 1) % len(songs)
         st.session_state.is_playing = False
 
 
