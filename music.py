@@ -82,17 +82,48 @@ st.markdown(f"<h4 style='color: cyan;'>🎵 Now Playing: {current_song}</h4>", u
 st.audio(audio_bytes, format='audio/mp3', start_time=0)
 
 # === CONTROLS (Previous & Next on same line) ===
+# === PREV & NEXT BUTTONS (Stay inline across all screen sizes) ===
+st.markdown("""
+<div style="display: flex; justify-content: space-between; gap: 10px; margin: 20px 0; flex-wrap: nowrap;">
+    <form action="" method="post">
+        <button type="submit" name="prev" style="
+            background-color: cyan;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: black;
+            cursor: pointer;
+            box-shadow: 0 0 10px cyan;
+        ">⏮️ Prev</button>
+    </form>
 
+    <form action="" method="post">
+        <button type="submit" name="next" style="
+            background-color: cyan;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: black;
+            cursor: pointer;
+            box-shadow: 0 0 10px cyan;
+        ">⏭️ Next</button>
+    </form>
+</div>
+""", unsafe_allow_html=True)
+# === HANDLE PREV/NEXT ACTIONS ===
+query_params = st.query_params
 
-# Handle navigation logic (based on session state variables or use st.query_params if needed)
-if st.button("⏮️ Prev", key="prev_inline"):
+if "prev" in st.session_state:
     st.session_state.song_index = (st.session_state.song_index - 1) % len(songs)
     st.session_state.is_playing = False
 
-if st.button("⏭️ Next", key="next_inline"):
+if "next" in st.session_state:
     st.session_state.song_index = (st.session_state.song_index + 1) % len(songs)
     st.session_state.is_playing = False
-
 
 
 # === PLAYLIST ===
