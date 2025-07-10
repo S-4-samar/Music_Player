@@ -82,15 +82,17 @@ st.markdown(f"<h4 style='color: cyan;'>🎵 Now Playing: {current_song}</h4>", u
 st.audio(audio_bytes, format='audio/mp3', start_time=0)
 
 # === CONTROLS (Previous & Next on same line) ===
+# === CONTROLS (Prev & Next - stay on same line in all screen sizes) ===
 st.markdown("""
 <div style="display: flex; justify-content: space-between; margin: 20px 0;">
     <form action="" method="post">
         <button name="prev_button" style="
             background-color: #00ffff;
             border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
+            border-radius: 8px;
+            padding: 10px 18px;
             font-size: 16px;
+            font-weight: bold;
             color: black;
             cursor: pointer;">⏮️ Prev</button>
     </form>
@@ -98,9 +100,10 @@ st.markdown("""
         <button name="next_button" style="
             background-color: #00ffff;
             border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
+            border-radius: 8px;
+            padding: 10px 18px;
             font-size: 16px;
+            font-weight: bold;
             color: black;
             cursor: pointer;">⏭️ Next</button>
     </form>
@@ -108,15 +111,15 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Detect button clicks
-prev_clicked = st.session_state.get("prev_button", False)
-next_clicked = st.session_state.get("next_button", False)
-
-if st.session_state.get("prev_button") or st.experimental_get_query_params().get("prev_button"):
+# Handle navigation logic (based on session state variables or use st.query_params if needed)
+if st.button("⏮️ Prev", key="prev_inline"):
     st.session_state.song_index = (st.session_state.song_index - 1) % len(songs)
     st.session_state.is_playing = False
-if st.session_state.get("next_button") or st.experimental_get_query_params().get("next_button"):
+
+if st.button("⏭️ Next", key="next_inline"):
     st.session_state.song_index = (st.session_state.song_index + 1) % len(songs)
     st.session_state.is_playing = False
+
 
 
 # === PLAYLIST ===
