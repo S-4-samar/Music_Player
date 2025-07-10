@@ -132,7 +132,7 @@ st.markdown("""
 , unsafe_allow_html=True)
 st.markdown("""
 <style>
-/* Full-Screen Moving Grid Background */
+/* === Blinking Red Moving Grid Background === */
 .grid-background {
     position: fixed;
     top: 0;
@@ -140,23 +140,26 @@ st.markdown("""
     width: 100vw;
     height: 100vh;
     background: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        linear-gradient(to right, rgba(255, 0, 0, 0.2) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 0, 0, 0.2) 1px, transparent 1px);
     background-size: 40px 40px;
-    animation: moveGrid 40s linear infinite;
+    animation: moveGrid 20s linear infinite, blinkGrid 2s ease-in-out infinite;
     z-index: 0;
 }
 
-/* Grid Movement Animation */
 @keyframes moveGrid {
     0% { background-position: 0 0; }
     100% { background-position: 40px 40px; }
+}
+
+@keyframes blinkGrid {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
 }
 </style>
 
 <div class="grid-background"></div>
 """, unsafe_allow_html=True)
-
 
 
 
