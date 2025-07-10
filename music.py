@@ -4,7 +4,10 @@ import pygame
 import base64
 
 # Initialize Pygame mixer
-pygame.mixer.init()
+# pygame.mixer.init()
+audio_file_path = os.path.join(songs_dir, current_song)
+audio_bytes = open(audio_file_path, 'rb').read()
+st.audio(audio_bytes, format='audio/mp3', start_time=0)
 
 # Paths
 base_dir = os.path.dirname(os.path.abspath(__file__))
