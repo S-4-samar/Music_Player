@@ -5,16 +5,16 @@ import base64
 # === PAGE CONFIG ===
 st.set_page_config(page_title="🎷 Smart Music Player", layout="centered")
 
-st.markdown(""" 
+st.markdown("""
 <style>
-/* === Animated Sound Waves Background === */
+/* === Blinking Neon Sound Waves === */
 .sound-waves {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: -5;
+    z-index: -2;
     overflow: hidden;
     pointer-events: none;
 }
@@ -22,35 +22,40 @@ st.markdown("""
 .sound-waves .wave {
     position: absolute;
     width: 100%;
-    height: 2px;
+    height: 3px;
     background: linear-gradient(90deg, transparent, cyan, transparent);
-    opacity: 0.2;
-    animation: moveWave 8s linear infinite;
+    opacity: 0.1;
+    animation: moveWave 8s linear infinite, blinkWave 2.5s ease-in-out infinite;
 }
 
 .sound-waves .wave:nth-child(1) {
     top: 20%;
-    animation-delay: 0s;
+    animation-delay: 0s, 0s;
 }
 
 .sound-waves .wave:nth-child(2) {
     top: 40%;
-    animation-delay: 2s;
+    animation-delay: 2s, 0.5s;
 }
 
 .sound-waves .wave:nth-child(3) {
     top: 60%;
-    animation-delay: 4s;
+    animation-delay: 4s, 1s;
 }
 
 .sound-waves .wave:nth-child(4) {
     top: 80%;
-    animation-delay: 6s;
+    animation-delay: 6s, 1.5s;
 }
 
 @keyframes moveWave {
     0% { transform: translateX(-100%); }
     100% { transform: translateX(100%); }
+}
+
+@keyframes blinkWave {
+    0%, 100% { opacity: 0.1; }
+    50% { opacity: 0.5; }
 }
 </style>
 
@@ -61,6 +66,7 @@ st.markdown("""
     <div class="wave"></div>
 </div>
 """, unsafe_allow_html=True)
+
 
 st.markdown("<h2 style='text-align: center; color: white;'>🎵 Music Player</h2>", unsafe_allow_html=True)
 
