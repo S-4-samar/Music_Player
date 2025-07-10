@@ -161,13 +161,14 @@ st.audio(audio_bytes, format='audio/mp3', start_time=0)
 col1, col2 = st.columns([1, 1])
 
 with col1:
-    if st.button("▶️ Play"):
-        st.session_state.is_playing = True
+   if st.button("⏭️ Next"):
+        st.session_state.song_index = (st.session_state.song_index + 1) % len(songs)
+        st.session_state.is_playing = False  # Optional: reset playback state
 
 with col2:
-    if st.button("⏭️ Next"):
-        st.session_state.song_index = (st.session_state.song_index + 1) % len(songs)
-        st.session_state.is_playing = False
+    if st.button("⏮️ Prev"):
+        st.session_state.song_index = (st.session_state.song_index - 1) % len(songs)
+        st.session_state.is_playing = False  # Optional: reset playback 
 
 # === PLAYLIST ===
 with st.expander("📂 Playlist"):
