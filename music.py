@@ -139,14 +139,7 @@ if os.path.exists(album_art_path):
             <img src='data:image/png;base64,{img_data}' alt='Album Art'>
         </div>
     """, unsafe_allow_html=True)
-    if os.path.exists(album_art_path):
-    img_data = base64.b64encode(open(album_art_path, "rb").read()).decode()
-    st.markdown(f"""
-        <div style='position: relative; text-align: center;'>
-            <img src='data:image/png;base64,{img_data}' style='width: 90%; max-width: 280px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,255,255,0.3); z-index: 2; position: relative;' />
-            <div class="pulse-circle"></div>
-        </div>
-    """, unsafe_allow_html=True)
+    
 
     st.markdown("""
     <style>
