@@ -8,8 +8,6 @@ st.set_page_config(page_title="🎷 Smart Music Player", layout="centered")
 # === SESSION STATE INIT ===
 if "song_index" not in st.session_state:
     st.session_state.song_index = 0
-if "last_played_index" not in st.session_state:
-    st.session_state.last_played_index = -1
 if "is_playing" not in st.session_state:
     st.session_state.is_playing = False
 
@@ -33,32 +31,16 @@ current_song = songs[st.session_state.song_index]
 audio_file_path = os.path.join(songs_dir, current_song)
 audio_bytes = open(audio_file_path, 'rb').read()
 
-# === ALBUM ART ===
+# === ALBUM ART BASE64 ===
 img_data = base64.b64encode(open(album_art_path, "rb").read()).decode()
 
 # === PAGE TITLE ===
 st.markdown("<h2 style='text-align: center; color: white;'>🎵 Music Player</h2>", unsafe_allow_html=True)
 
 # === CONDITIONAL ROTATION STYLE ===
-if st.session_state.is_playing:
-    rotation_style = """
-    <style>
-    .album-spin {
-        animation: spin 8s linear infinite;
-    }
-    @keyframes spin {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-    }
-    </style>
-    """
-else:
-    rotation_style = "<style>.album-spin { animation: none; }</style>"
-
-st.markdown(rotation_style, unsafe_allow_html=True)
-
-st.markdown(f"""
-<div style="
+rotation_style = f"""
+<style>
+.album-spin {{
     width: 220px;
     height: 220px;
     margin: 0 auto;
@@ -66,22 +48,37 @@ st.markdown(f"""
     overflow: hidden;
     border: 6px solid rgba(0,255,255,0.3);
     box-shadow: 0 0 30px rgba(0,255,255,0.6);
-" class="album-spin">
-    <img src="data:image/png;base64,{img_data}" style="
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 50%;
-        display: block;
-    ">
+    {"animation: spin 8s linear infinite;" if st.session_state.is_playing else ""}
+}}
+.album-spin img {{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}}
+
+@keyframes spin {{
+    from {{ transform: rotate(0deg); }}
+    to {{ transform: rotate(360deg); }}
+}}
+</style>
+"""
+
+st.markdown(rotation_style, unsafe_allow_html=True)
+
+st.markdown(f"""
+<div class="album-spin">
+    <img src="data:image/png;base64,{img_data}">
 </div>
 """, unsafe_allow_html=True)
 
 # === AUDIO PLAYER ===
-st.audio(audio_bytes, format='audio/mp3', start_time=0)
+if st.session_state.is_playing:
+    st.audio(audio_bytes, format='audio/mp3')
 
 # === CONTROLS ===
-col1, col2, col3 = st.columns([1, 1, 1])
+col1, col2, col3, col4 = st.columns(4)
 
 with col1:
     if st.button("⏮️ Prev"):
@@ -97,6 +94,12 @@ with col2:
 with col3:
     if st.button("⏹️ Stop"):
         st.session_state.is_playing = False
+        st.rerun()
+
+with col4:
+    if st.button("⏭️ Next"):
+        st.session_state.song_index = (st.session_state.song_index + 1) % len(songs)
+        st.session_state.is_playing = True
         st.rerun()
 
 # === PLAYLIST ===
