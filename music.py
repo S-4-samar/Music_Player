@@ -107,51 +107,47 @@ if os.path.exists(album_art_path):
         </div>
         """, unsafe_allow_html=True
     )
+# === DJ Visualizer ===
+if st.session_state.is_playing:
+    st.markdown("""
+    <style>
+    .visualizer {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        height: 100px;
+        margin-top: 20px;
+        gap: 5px;
+    }
+    .bar {
+        width: 6px;
+        height: 20px;
+        background: cyan;
+        animation: bounce 1s infinite ease-in-out;
+        border-radius: 10px;
+        box-shadow: 0 0 10px cyan;
+    }
+    .bar:nth-child(1) { animation-delay: 0s; }
+    .bar:nth-child(2) { animation-delay: 0.2s; }
+    .bar:nth-child(3) { animation-delay: 0.4s; }
+    .bar:nth-child(4) { animation-delay: 0.6s; }
+    .bar:nth-child(5) { animation-delay: 0.8s; }
 
-# === VISUALIZER ===
-if st.session_state.song_index != st.session_state.last_played_index:
-    st.session_state.is_playing = True
-    st.session_state.last_played_index = st.session_state.song_index
+    @keyframes bounce {
+        0%, 100% { height: 20px; }
+        50% { height: 80px; }
+    }
+    </style>
 
-# === VISUALIZER (Always shows under audio) ===
-st.markdown("""
-<style>
-.visualizer {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    height: 80px;
-    margin: 10px 0 20px;
-    gap: 6px;
-}
-.bar {
-    width: 8px;
-    height: 20px;
-    background: cyan;
-    animation: bounce 1s infinite ease-in-out;
-    border-radius: 10px;
-    box-shadow: 0 0 10px cyan;
-}
-.bar:nth-child(1) { animation-delay: 0s; }
-.bar:nth-child(2) { animation-delay: 0.2s; }
-.bar:nth-child(3) { animation-delay: 0.4s; }
-.bar:nth-child(4) { animation-delay: 0.6s; }
-.bar:nth-child(5) { animation-delay: 0.8s; }
+    <div class='visualizer'>
+        <div class='bar'></div>
+        <div class='bar'></div>
+        <div class='bar'></div>
+        <div class='bar'></div>
+        <div class='bar'></div>
+    </div>
+    """, unsafe_allow_html=True)
 
-@keyframes bounce {
-    0%, 100% { height: 20px; }
-    50% { height: 80px; }
-}
-</style>
-
-<div class='visualizer'>
-    <div class='bar'></div>
-    <div class='bar'></div>
-    <div class='bar'></div>
-    <div class='bar'></div>
-    <div class='bar'></div>
-</div>
-""", unsafe_allow_html=True)
 
 
 # === NOW PLAYING ===
@@ -177,17 +173,17 @@ st.markdown("""
 <div class="button-row">
 """, unsafe_allow_html=True)
 
+# === CONTROLS (Play & Next on same line) ===
 col1, col2 = st.columns([1, 1])
 
 with col1:
-    if st.button("⏮️ Prev"):
-        st.session_state.song_index = (st.session_state.song_index - 1) % len(songs)
-        st.session_state.is_playing = False
+    if st.button("▶️ Play"):
+        st.session_state.is_playing = True  # Trigger visualizer
 
 with col2:
     if st.button("⏭️ Next"):
         st.session_state.song_index = (st.session_state.song_index + 1) % len(songs)
-        st.session_state.is_playing = False
+        st.session_state.is_playing = False  # Reset visualizer
 
 st.markdown("</div>", unsafe_allow_html=True)
 
