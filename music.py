@@ -74,6 +74,17 @@ if os.path.exists(album_art_path):
         </div>
         """, unsafe_allow_html=True
     )
+# === VISUALIZER BARS ===
+if st.session_state.is_playing:
+    st.markdown("""
+    <div class='visualizer'>
+        <div class='bar'></div>
+        <div class='bar'></div>
+        <div class='bar'></div>
+        <div class='bar'></div>
+        <div class='bar'></div>
+    </div>
+    """, unsafe_allow_html=True)
 
 # === NOW PLAYING ===
 st.markdown(f"""
