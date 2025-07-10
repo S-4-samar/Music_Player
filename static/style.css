@@ -284,7 +284,6 @@ h4 {
     50% { height: 80px; }
 }
 </style>
-<style>
 st.markdown("""
 <style>
 .neon-stars {
@@ -320,4 +319,3 @@ st.markdown("""
     for i in range(70)
 ]) + "</div>"
 , unsafe_allow_html=True)
-</style>
