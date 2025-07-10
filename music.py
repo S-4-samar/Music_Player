@@ -130,37 +130,6 @@ st.markdown("""
     for i in range(60)
 ]) + "</div>"
 , unsafe_allow_html=True)
-st.markdown("""
-<style>
-/* === Blinking Cyan Moving Grid Background === */
-.grid-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: 
-        linear-gradient(to right, rgba(0, 255, 255, 0.2) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(0, 255, 255, 0.2) 1px, transparent 1px);
-    background-size: 40px 40px;
-    animation: moveGrid 20s linear infinite, blinkGrid 2s ease-in-out infinite;
-    z-index: 0;
-}
-
-@keyframes moveGrid {
-    0% { background-position: 0 0; }
-    100% { background-position: 40px 40px; }
-}
-
-@keyframes blinkGrid {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 1; }
-}
-</style>
-
-<div class="grid-background"></div>
-""", unsafe_allow_html=True)
-
 
 # === ALBUM ART ===
 if os.path.exists(album_art_path):
