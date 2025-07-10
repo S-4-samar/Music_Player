@@ -83,47 +83,44 @@ st.audio(audio_bytes, format='audio/mp3', start_time=0)
 
 # === CONTROLS (Previous & Next on same line) ===
 # === PREV & NEXT BUTTONS (Stay inline across all screen sizes) ===
+# === CUSTOM INLINE BUTTONS ===
 st.markdown("""
-<div style="display: flex; justify-content: space-between; gap: 10px; margin: 20px 0; flex-wrap: nowrap;">
-    <form action="" method="post">
-        <button type="submit" name="prev" style="
-            background-color: cyan;
-            border: none;
-            border-radius: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            color: black;
-            cursor: pointer;
-            box-shadow: 0 0 10px cyan;
-        ">⏮️ Prev</button>
-    </form>
-
-    <form action="" method="post">
-        <button type="submit" name="next" style="
-            background-color: cyan;
-            border: none;
-            border-radius: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            color: black;
-            cursor: pointer;
-            box-shadow: 0 0 10px cyan;
-        ">⏭️ Next</button>
-    </form>
-</div>
+<style>
+.inline-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 20px 0;
+}
+.inline-buttons div {
+    flex: 1;
+}
+button[kind="secondary"] {
+    background-color: cyan !important;
+    color: black !important;
+    font-weight: bold;
+    border-radius: 10px !important;
+    box-shadow: 0 0 10px cyan;
+}
+</style>
 """, unsafe_allow_html=True)
-# === HANDLE PREV/NEXT ACTIONS ===
-query_params = st.query_params
 
-if "prev" in st.session_state:
-    st.session_state.song_index = (st.session_state.song_index - 1) % len(songs)
-    st.session_state.is_playing = False
+# Streamlit buttons wrapped in styled divs
+st.markdown('<div class="inline-buttons">', unsafe_allow_html=True)
 
-if "next" in st.session_state:
-    st.session_state.song_index = (st.session_state.song_index + 1) % len(songs)
-    st.session_state.is_playing = False
+col1, col2 = st.columns(2)
+
+with col1:
+    if st.button("⏮️ Prev"):
+        st.session_state.song_index = (st.session_state.song_index - 1) % len(songs)
+        st.session_state.is_playing = False
+
+with col2:
+    if st.button("⏭️ Next"):
+        st.session_state.song_index = (st.session_state.song_index + 1) % len(songs)
+        st.session_state.is_playing = False
+
+st.markdown('</div>', unsafe_allow_html=True)
 
 
 # === PLAYLIST ===
