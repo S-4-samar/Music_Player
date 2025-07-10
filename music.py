@@ -35,7 +35,7 @@ audio_file_path = os.path.join(songs_dir, current_song)
 audio_bytes = open(audio_file_path, 'rb').read()
 
 # === CSS ===
-responsive_css = """
+st.markdown("""
 <style>
 body {
     overflow-x: hidden;
@@ -94,51 +94,20 @@ ul {
     }
 }
 </style>
-"""
-st.markdown(responsive_css, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 # === ALBUM ART ===
 if os.path.exists(album_art_path):
     img_data = base64.b64encode(open(album_art_path, "rb").read()).decode()
-    st.markdown(
-        f"""
+    st.markdown(f"""
         <div class='album-art' style='text-align: center;'>
             <img src='data:image/png;base64,{img_data}' alt='Album Art'>
         </div>
-        """, unsafe_allow_html=True
-    )
+    """, unsafe_allow_html=True)
+
 # === DJ Visualizer ===
 if st.session_state.is_playing:
     st.markdown("""
-    <style>
-    .visualizer {
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-        height: 100px;
-        margin-top: 20px;
-        gap: 5px;
-    }
-    .bar {
-        width: 6px;
-        height: 20px;
-        background: cyan;
-        animation: bounce 1s infinite ease-in-out;
-        border-radius: 10px;
-        box-shadow: 0 0 10px cyan;
-    }
-    .bar:nth-child(1) { animation-delay: 0s; }
-    .bar:nth-child(2) { animation-delay: 0.2s; }
-    .bar:nth-child(3) { animation-delay: 0.4s; }
-    .bar:nth-child(4) { animation-delay: 0.6s; }
-    .bar:nth-child(5) { animation-delay: 0.8s; }
-
-    @keyframes bounce {
-        0%, 100% { height: 20px; }
-        50% { height: 80px; }
-    }
-    </style>
-
     <div class='visualizer'>
         <div class='bar'></div>
         <div class='bar'></div>
@@ -147,8 +116,6 @@ if st.session_state.is_playing:
         <div class='bar'></div>
     </div>
     """, unsafe_allow_html=True)
-
-
 
 # === NOW PLAYING ===
 st.markdown(f"""
@@ -160,32 +127,17 @@ st.markdown(f"""
 # === STREAMLIT AUDIO PLAYER ===
 st.audio(audio_bytes, format='audio/mp3', start_time=0)
 
-# === CONTROLS (Previous & Next buttons close together) ===
-st.markdown("""
-<style>
-.button-row {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 10px;
-}
-</style>
-<div class="button-row">
-""", unsafe_allow_html=True)
-
-# === CONTROLS (Play & Next on same line) ===
+# === CONTROLS (Play & Next close together) ===
 col1, col2 = st.columns([1, 1])
 
 with col1:
     if st.button("▶️ Play"):
-        st.session_state.is_playing = True  # Trigger visualizer
+        st.session_state.is_playing = True
 
 with col2:
     if st.button("⏭️ Next"):
         st.session_state.song_index = (st.session_state.song_index + 1) % len(songs)
-        st.session_state.is_playing = False  # Reset visualizer
-
-st.markdown("</div>", unsafe_allow_html=True)
+        st.session_state.is_playing = False
 
 # === PLAYLIST ===
 with st.expander("📂 Playlist"):
