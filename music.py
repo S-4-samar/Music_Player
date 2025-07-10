@@ -4,6 +4,15 @@ import base64
 
 # === PAGE CONFIG ===
 st.set_page_config(page_title="🎷 Smart Music Player", layout="centered")
+
+# === ALBUM ART IMAGE LOAD FIRST TO USE IN F-STRING ===
+base_dir = os.path.dirname(os.path.abspath(__file__))
+album_art_path = os.path.join(base_dir, "static", "album_art.png")
+
+if os.path.exists(album_art_path):
+    img_data = base64.b64encode(open(album_art_path, "rb").read()).decode()
+
+# === ROTATING ALBUM ART ===
 st.markdown(f"""
 <div style="
     width: 220px;
@@ -32,7 +41,6 @@ st.markdown(f"""
 </style>
 """, unsafe_allow_html=True)
 
-
 st.markdown("<h2 style='text-align: center; color: white;'>🎵 Music Player</h2>", unsafe_allow_html=True)
 
 # === SESSION STATE INIT ===
@@ -44,9 +52,7 @@ if "is_playing" not in st.session_state:
     st.session_state.is_playing = False
 
 # === Paths ===
-base_dir = os.path.dirname(os.path.abspath(__file__))
 songs_dir = os.path.join(base_dir, "songs")
-album_art_path = os.path.join(base_dir, "static", "album_art.png")
 
 # === LOAD SONGS ===
 if not os.path.exists(songs_dir):
@@ -125,6 +131,7 @@ ul {
 </style>
 """, unsafe_allow_html=True)
 
+# === NEON STARS ===
 st.markdown("""
 <style>
 .neon-stars-overlay {
@@ -161,42 +168,7 @@ st.markdown("""
 ]) + "</div>"
 , unsafe_allow_html=True)
 
-# === ALBUM ART ===
-if os.path.exists(album_art_path):
-    img_data = base64.b64encode(open(album_art_path, "rb").read()).decode()
-    st.markdown(f"""
-    <div style="
-        width: 220px;
-        height: 220px;
-        margin: 0 auto;
-        border-radius: 50%;
-        overflow: hidden;
-        border: 6px solid rgba(0,255,255,0.3);
-        box-shadow: 0 0 30px rgba(0,255,255,0.6);
-        animation: spin 8s linear infinite;
-    ">
-        <img src="data:image/png;base64,{img_data}" style="
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-            display: block;
-        ">
-    </div>
-
-    <style>
-    @keyframes spin {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
-
-    
-    
-# === DJ Visualizer ===
-# === VISUALIZER (Always shows under audio) ===
+# === VISUALIZER ===
 st.markdown("""
 <style>
 .visualizer {
@@ -236,7 +208,6 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-
 # === NOW PLAYING ===
 st.markdown(f"""
 <h4 style='text-align: center; color: cyan; margin-top: 10px; margin-bottom: 8px;'>
@@ -247,20 +218,20 @@ st.markdown(f"""
 # === STREAMLIT AUDIO PLAYER ===
 st.audio(audio_bytes, format='audio/mp3', start_time=0)
 
-# === CONTROLS (Play & Next close together) ===
+# === CONTROLS ===
 col1, col2 = st.columns([1, 1])
 
 with col1:
     if st.button("⏮️ Prev"):
         st.session_state.song_index = (st.session_state.song_index - 1) % len(songs)
-        st.session_state.is_playing = True  # Trigger visualizer/audio
-        st.rerun()  # Rerun the app to reflect updated song
+        st.session_state.is_playing = True
+        st.rerun()
 
 with col2:
     if st.button("⏭️ Next"):
         st.session_state.song_index = (st.session_state.song_index + 1) % len(songs)
-        st.session_state.is_playing = True  # Trigger visualizer/audio
-        st.rerun()  # Rerun the app to reflect updated song
+        st.session_state.is_playing = True
+        st.rerun()
 
 # === PLAYLIST ===
 with st.expander("📂 Playlist"):
@@ -270,7 +241,7 @@ with st.expander("📂 Playlist"):
         st.markdown(f"<li style='color: white;'>{icon}{song}</li>", unsafe_allow_html=True)
     st.markdown("</ul>", unsafe_allow_html=True)
 
-# === SIDEBAR INFO ===
+# === SIDEBAR ===
 with st.sidebar:
     st.markdown("## 🎶 About This App")
     st.markdown("""
