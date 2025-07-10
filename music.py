@@ -82,16 +82,22 @@ st.markdown(f"<h4 style='color: cyan;'>🎵 Now Playing: {current_song}</h4>", u
 st.audio(audio_bytes, format='audio/mp3', start_time=0)
 
 # === CONTROLS (Previous & Next on same line) ===
-col1, spacer, col2 = st.columns([1, 4, 1])
-with col1:
-    if st.button("⏭️ Next", key="next"):
-        st.session_state.song_index = (st.session_state.song_index + 1) % len(songs)
-        st.session_state.is_playing = False
+# === CONTROLS (Previous & Next on same row) ===
+col_prev, col_spacer, col_next = st.columns([1, 4, 1])
 
-with col2:
+with col_prev:
+    st.markdown("<div style='text-align: left;'>", unsafe_allow_html=True)
     if st.button("⏮️ Prev", key="prev"):
         st.session_state.song_index = (st.session_state.song_index - 1) % len(songs)
         st.session_state.is_playing = False
+    st.markdown("</div>", unsafe_allow_html=True)
+
+with col_next:
+    st.markdown("<div style='text-align: right;'>", unsafe_allow_html=True)
+    if st.button("⏭️ Next", key="next"):
+        st.session_state.song_index = (st.session_state.song_index + 1) % len(songs)
+        st.session_state.is_playing = False
+    st.markdown("</div>", unsafe_allow_html=True)
 
 
 
