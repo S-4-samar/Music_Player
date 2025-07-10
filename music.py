@@ -4,39 +4,6 @@ import base64
 
 # === PAGE CONFIG ===
 st.set_page_config(page_title="🎷 Smart Music Player", layout="centered")
-st.markdown("""
-<style>
-body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
-
-/* Moving Grid Background */
-.grid-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
-    z-index: -9999;
-    animation: moveGrid 30s linear infinite;
-}
-
-@keyframes moveGrid {
-    0% { background-position: 0 0; }
-    100% { background-position: 40px 40px; }
-}
-</style>
-
-<div class="grid-background"></div>
-""", unsafe_allow_html=True)
-
-
 st.markdown("<h2 style='text-align: center; color: white;'>🎵 Music Player</h2>", unsafe_allow_html=True)
 
 # === SESSION STATE INIT ===
@@ -130,39 +97,35 @@ ul {
 """, unsafe_allow_html=True)
 st.markdown("""
 <style>
-.neon-stars-overlay {
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* Moving Grid Background */
+.grid-background {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
+    width: 100vw;
+    height: 100vh;
+    background: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: -9999;
+    animation: moveGrid 30s linear infinite;
 }
 
-.neon-stars-overlay .star {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    border-radius: 50%;
-    background: cyan;
-    box-shadow: 0 0 8px cyan;
-    animation: neon-blink 3s infinite ease-in-out;
-}
-
-@keyframes neon-blink {
-    0%, 100% { opacity: 0.3; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.4); }
+@keyframes moveGrid {
+    0% { background-position: 0 0; }
+    100% { background-position: 40px 40px; }
 }
 </style>
 
-<div class="neon-stars-overlay">
-""" +
-"\n".join([
-    f'<div class="star" style="top:{i * 2 % 100}vh; left:{(i * i * 3) % 100}vw; animation-delay:{(i % 10) * 0.2}s;"></div>'
-    for i in range(60)
-]) + "</div>"
-, unsafe_allow_html=True)
+<div class="grid-background"></div>
+""", unsafe_allow_html=True)
 
 
 # === ALBUM ART ===
