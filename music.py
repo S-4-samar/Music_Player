@@ -4,67 +4,35 @@ import base64
 
 # === PAGE CONFIG ===
 st.set_page_config(page_title="🎷 Smart Music Player", layout="centered")
-
 st.markdown("""
 <style>
-/* === Blinking Neon Sound Waves === */
-.sound-waves {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -2;
+.album-art {
+    position: relative;
+    margin: 0 auto 20px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
     overflow: hidden;
-    pointer-events: none;
+    box-shadow: 0 0 20px rgba(0,255,255,0.5);
 }
 
-.sound-waves .wave {
-    position: absolute;
+.album-art img {
     width: 100%;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, cyan, transparent);
-    opacity: 0.1;
-    animation: moveWave 8s linear infinite, blinkWave 2.5s ease-in-out infinite;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
-.sound-waves .wave:nth-child(1) {
-    top: 20%;
-    animation-delay: 0s, 0s;
+/* Only spin when playing */
+.spin {
+    animation: spin 6s linear infinite;
 }
 
-.sound-waves .wave:nth-child(2) {
-    top: 40%;
-    animation-delay: 2s, 0.5s;
-}
-
-.sound-waves .wave:nth-child(3) {
-    top: 60%;
-    animation-delay: 4s, 1s;
-}
-
-.sound-waves .wave:nth-child(4) {
-    top: 80%;
-    animation-delay: 6s, 1.5s;
-}
-
-@keyframes moveWave {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-}
-
-@keyframes blinkWave {
-    0%, 100% { opacity: 0.1; }
-    50% { opacity: 0.5; }
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 </style>
-
-<div class="sound-waves">
-    <div class="wave"></div>
-    <div class="wave"></div>
-    <div class="wave"></div>
-    <div class="wave"></div>
-</div>
 """, unsafe_allow_html=True)
 
 
@@ -199,11 +167,13 @@ st.markdown("""
 # === ALBUM ART ===
 if os.path.exists(album_art_path):
     img_data = base64.b64encode(open(album_art_path, "rb").read()).decode()
+    spin_class = "spin" if st.session_state.is_playing else ""
     st.markdown(f"""
-        <div class='album-art' style='text-align: center;'>
+        <div class='album-art {spin_class}'>
             <img src='data:image/png;base64,{img_data}' alt='Album Art'>
         </div>
     """, unsafe_allow_html=True)
+
     
     
 # === DJ Visualizer ===
