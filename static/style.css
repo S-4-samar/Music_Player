@@ -17,7 +17,7 @@ body {
   100% { background-color: #203a43; }
 }
 
-/* === Neon Vibe Text When Music Plays === */
+/* === Neon Glow When Music Plays === */
 .neon-glow {
   text-align: center;
   font-size: 24px;
@@ -25,11 +25,7 @@ body {
   padding: 15px;
   animation: pulse 1s infinite;
   color: #00ffff;
-  text-shadow:
-    0 0 5px #0ff,
-    0 0 10px #0ff,
-    0 0 20px #0ff,
-    0 0 40px #0ff;
+  text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff, 0 0 40px #0ff;
 }
 
 @keyframes pulse {
@@ -55,18 +51,10 @@ body {
   box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
   animation: bounce 1s infinite ease-in-out;
 }
-.club-bars div:nth-child(2) {
-  animation-delay: 0.1s;
-}
-.club-bars div:nth-child(3) {
-  animation-delay: 0.2s;
-}
-.club-bars div:nth-child(4) {
-  animation-delay: 0.3s;
-}
-.club-bars div:nth-child(5) {
-  animation-delay: 0.4s;
-}
+.club-bars div:nth-child(2) { animation-delay: 0.1s; }
+.club-bars div:nth-child(3) { animation-delay: 0.2s; }
+.club-bars div:nth-child(4) { animation-delay: 0.3s; }
+.club-bars div:nth-child(5) { animation-delay: 0.4s; }
 
 @keyframes bounce {
   0%, 100% { transform: scaleY(1); }
@@ -176,31 +164,8 @@ h4 {
   font-size: 12px;
   color: #ccc;
 }
-/* === Bigger Neon Corner Glow Effect ===
-.corner-vibe {
-  position: fixed;
-  top: -200px;
-  right: -200px;
-  width: 700px;
-  height: 700px;
-  background: radial-gradient(circle, rgba(0,255,255,0.25) 0%, rgba(0,0,0,0) 75%);
-  border-radius: 50%;
-  z-index: 0;
-  animation: rotateGlow 16s linear infinite;
-  pointer-events: none;
-  filter: blur(80px);
-  opacity: 0.9;
-}
 
-@keyframes rotateGlow {
-  0% {
-    transform: rotate(0deg) translateX(0);
-  }
-  100% {
-    transform: rotate(360deg) translateX(0);
-  }
-} */
-/* === NEON STRIPES FROM TOP-RIGHT CORNER === */
+/* === NEON CORNER STRIPES === */
 .corner-stripes {
   position: fixed;
   top: 0;
@@ -221,22 +186,64 @@ h4 {
   opacity: 0.5;
   transition: all 0.3s ease-in-out;
 }
-
-/* Add animation for blinking (when playing) */
 .blinking .stripe {
   animation: blink 1.5s infinite ease-in-out;
 }
-
 @keyframes blink {
   0%, 100% { opacity: 0.3; transform: translateX(0); }
   50% { opacity: 1; transform: translateX(-20px); }
 }
-
-/* Different delays for each stripe */
 .stripe:nth-child(1) { top: 10%; animation-delay: 0s; }
 .stripe:nth-child(2) { top: 20%; animation-delay: 0.3s; }
 .stripe:nth-child(3) { top: 30%; animation-delay: 0.6s; }
 .stripe:nth-child(4) { top: 40%; animation-delay: 0.9s; }
 .stripe:nth-child(5) { top: 50%; animation-delay: 1.2s; }
 
+/* === 📱 MOBILE RESPONSIVE OVERRIDES === */
+@media screen and (max-width: 600px) {
+  h2 {
+    font-size: 1.6rem;
+  }
 
+  .player {
+    width: 95%;
+    padding: 15px;
+    margin: 20px auto;
+  }
+
+  .album-art {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 10px;
+  }
+
+  .controls button {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+    margin: 0 5px;
+  }
+
+  .club-bars {
+    height: 60px;
+  }
+
+  .club-bars div {
+    width: 4px;
+    margin: 0 2px;
+  }
+
+  .volume-control input[type='range'] {
+    width: 80px;
+  }
+
+  .progress-bar,
+  .time {
+    width: 90%;
+  }
+
+  .neon-glow {
+    font-size: 18px;
+    padding: 10px;
+  }
+}
