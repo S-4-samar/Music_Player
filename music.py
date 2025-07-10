@@ -132,7 +132,7 @@ st.markdown("""
 , unsafe_allow_html=True)
 st.markdown("""
 <style>
-/* === Blinking Red Moving Grid Background === */
+/* === Blinking Cyan Moving Grid Background === */
 .grid-background {
     position: fixed;
     top: 0;
@@ -140,8 +140,8 @@ st.markdown("""
     width: 100vw;
     height: 100vh;
     background: 
-        linear-gradient(to right, rgba(255, 0, 0, 0.2) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 0, 0, 0.2) 1px, transparent 1px);
+        linear-gradient(to right, rgba(0, 255, 255, 0.2) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 255, 255, 0.2) 1px, transparent 1px);
     background-size: 40px 40px;
     animation: moveGrid 20s linear infinite, blinkGrid 2s ease-in-out infinite;
     z-index: 0;
@@ -160,7 +160,6 @@ st.markdown("""
 
 <div class="grid-background"></div>
 """, unsafe_allow_html=True)
-
 
 
 # === ALBUM ART ===
