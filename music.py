@@ -106,11 +106,7 @@ if os.path.exists(album_art_path):
     """, unsafe_allow_html=True)
 
 # === DJ Visualizer ===
-# === Trigger audio and visualizer if playing ===
 if st.session_state.is_playing:
-    st.audio(audio_bytes, format='audio/mp3', start_time=0)
-
-    # === Visualizer ===
     st.markdown("""
     <div class='visualizer'>
         <div class='bar'></div>
@@ -121,7 +117,6 @@ if st.session_state.is_playing:
     </div>
     """, unsafe_allow_html=True)
 
-
 # === NOW PLAYING ===
 st.markdown(f"""
 <h4 style='text-align: center; color: cyan; margin-top: 10px; margin-bottom: 8px;'>
@@ -130,7 +125,7 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # === STREAMLIT AUDIO PLAYER ===
-# st.audio(audio_bytes, format='audio/mp3', start_time=0)
+st.audio(audio_bytes, format='audio/mp3', start_time=0)
 
 # === CONTROLS (Play & Next close together) ===
 col1, col2 = st.columns([1, 1])
@@ -138,8 +133,6 @@ col1, col2 = st.columns([1, 1])
 with col1:
     if st.button("▶️ Play"):
         st.session_state.is_playing = True
-        st.session_state.last_played_index = st.session_state.song_index
-        st.rerun()  # ✅ Updated from experimental_rerun()
 
 with col2:
     if st.button("⏭️ Next"):
