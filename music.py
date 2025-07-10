@@ -4,6 +4,64 @@ import base64
 
 # === PAGE CONFIG ===
 st.set_page_config(page_title="🎷 Smart Music Player", layout="centered")
+
+st.markdown(""" 
+<style>
+/* === Animated Sound Waves Background === */
+.sound-waves {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -5;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.sound-waves .wave {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, cyan, transparent);
+    opacity: 0.2;
+    animation: moveWave 8s linear infinite;
+}
+
+.sound-waves .wave:nth-child(1) {
+    top: 20%;
+    animation-delay: 0s;
+}
+
+.sound-waves .wave:nth-child(2) {
+    top: 40%;
+    animation-delay: 2s;
+}
+
+.sound-waves .wave:nth-child(3) {
+    top: 60%;
+    animation-delay: 4s;
+}
+
+.sound-waves .wave:nth-child(4) {
+    top: 80%;
+    animation-delay: 6s;
+}
+
+@keyframes moveWave {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+</style>
+
+<div class="sound-waves">
+    <div class="wave"></div>
+    <div class="wave"></div>
+    <div class="wave"></div>
+    <div class="wave"></div>
+</div>
+""", unsafe_allow_html=True)
+
 st.markdown("<h2 style='text-align: center; color: white;'>🎵 Music Player</h2>", unsafe_allow_html=True)
 
 # === SESSION STATE INIT ===
@@ -140,63 +198,7 @@ if os.path.exists(album_art_path):
             <img src='data:image/png;base64,{img_data}' alt='Album Art'>
         </div>
     """, unsafe_allow_html=True)
-    st.markdown("""
-<style>
-/* === Animated Sound Waves Background === */
-.sound-waves {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -5;
-    overflow: hidden;
-    pointer-events: none;
-}
-
-.sound-waves .wave {
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, cyan, transparent);
-    opacity: 0.15;
-    animation: moveWave 8s linear infinite;
-}
-
-.sound-waves .wave:nth-child(1) {
-    top: 20%;
-    animation-delay: 0s;
-}
-
-.sound-waves .wave:nth-child(2) {
-    top: 40%;
-    animation-delay: 2s;
-}
-
-.sound-waves .wave:nth-child(3) {
-    top: 60%;
-    animation-delay: 4s;
-}
-
-.sound-waves .wave:nth-child(4) {
-    top: 80%;
-    animation-delay: 6s;
-}
-
-@keyframes moveWave {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-}
-</style>
-
-<div class="sound-waves">
-    <div class="wave"></div>
-    <div class="wave"></div>
-    <div class="wave"></div>
-    <div class="wave"></div>
-</div>
-""", unsafe_allow_html=True)
-
+    
     
 # === DJ Visualizer ===
 # === VISUALIZER (Always shows under audio) ===
