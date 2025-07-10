@@ -82,54 +82,17 @@ st.markdown(f"<h4 style='color: cyan;'>🎵 Now Playing: {current_song}</h4>", u
 st.audio(audio_bytes, format='audio/mp3', start_time=0)
 
 # === CONTROLS (Previous & Next on same line) ===
-# === PREV & NEXT BUTTONS (Stay inline across all screen sizes) ===
-# === CUSTOM INLINE BUTTONS ===
-st.markdown("""
-<style>
-.inline-buttons {
-    display: flex;
-    justify-content: space-between;
-    gap: 8px;
-    margin: 8px 0 0 0; /* Reduced top margin */
-}
-.inline-buttons div {
-    flex: 1;
-}
-button[kind="secondary"] {
-    background-color: cyan !important;
-    color: black !important;
-    font-weight: bold;
-    border-radius: 10px !important;
-    box-shadow: 0 0 10px cyan;
-    padding: 0.5rem 1rem !important;
-    margin: 0 !important;
-}
-h4 {
-    margin-bottom: 4px !important;
-}
-</style>
-""", unsafe_allow_html=True)
-
-# "Now Playing" with tighter spacing
-st.markdown(f"<h4 style='color: cyan; margin-bottom: 4px;'>🎵 Now Playing: {current_song}</h4>", unsafe_allow_html=True)
-
-# Buttons wrapped inline
-st.markdown('<div class="inline-buttons">', unsafe_allow_html=True)
-
-col1, col2 = st.columns(2)
-
+# === CONTROLS (Previous & Next on same line) ===
+col1, spacer, col2 = st.columns([1, 5, 1])
 with col1:
-    if st.button("⏮️ Prev"):
-        st.session_state.song_index = (st.session_state.song_index - 1) % len(songs)
-        st.session_state.is_playing = False
-
-with col2:
-    if st.button("⏭️ Next"):
+    if st.button("⏭️ Next", key="next"):
         st.session_state.song_index = (st.session_state.song_index + 1) % len(songs)
         st.session_state.is_playing = False
 
-st.markdown('</div>', unsafe_allow_html=True)
-
+with col2:
+    if st.button("⏮️ Prev", key="prev"):
+        st.session_state.song_index = (st.session_state.song_index - 1) % len(songs)
+        st.session_state.is_playing = False
 # === PLAYLIST ===
 with st.expander("📂 Playlist"):
     st.markdown("<ul>", unsafe_allow_html=True)
