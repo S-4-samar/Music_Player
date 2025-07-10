@@ -6,29 +6,36 @@ import base64
 st.set_page_config(page_title="🎷 Smart Music Player", layout="centered")
 st.markdown("""
 <style>
-/* === Moving Grid Background === */
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* Moving Grid Background */
 .grid-background {
     position: fixed;
     top: 0;
     left: 0;
-    width: 200%;
-    height: 200%;
+    width: 100vw;
+    height: 100vh;
     background: 
-        linear-gradient(transparent 1px, rgba(255, 255, 255, 0.05) 1px),
-        linear-gradient(90deg, transparent 1px, rgba(255, 255, 255, 0.05) 1px);
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
     background-size: 40px 40px;
-    z-index: -10;
+    z-index: -9999;
     animation: moveGrid 30s linear infinite;
 }
 
 @keyframes moveGrid {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(-40px, -40px); }
+    0% { background-position: 0 0; }
+    100% { background-position: 40px 40px; }
 }
 </style>
 
 <div class="grid-background"></div>
 """, unsafe_allow_html=True)
+
 
 st.markdown("<h2 style='text-align: center; color: white;'>🎵 Music Player</h2>", unsafe_allow_html=True)
 
