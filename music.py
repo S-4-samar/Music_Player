@@ -106,7 +106,11 @@ if os.path.exists(album_art_path):
     """, unsafe_allow_html=True)
 
 # === DJ Visualizer ===
+# === Trigger audio and visualizer if playing ===
 if st.session_state.is_playing:
+    st.audio(audio_bytes, format='audio/mp3', start_time=0)
+
+    # === Visualizer ===
     st.markdown("""
     <div class='visualizer'>
         <div class='bar'></div>
@@ -116,6 +120,9 @@ if st.session_state.is_playing:
         <div class='bar'></div>
     </div>
     """, unsafe_allow_html=True)
+else:
+    st.audio(audio_bytes, format='audio/mp3', start_time=0)
+
 
 # === NOW PLAYING ===
 st.markdown(f"""
@@ -133,6 +140,9 @@ col1, col2 = st.columns([1, 1])
 with col1:
     if st.button("▶️ Play"):
         st.session_state.is_playing = True
+        st.session_state.last_played_index = st.session_state.song_index
+        st.experimental_rerun()  # Force rerun immediately to show visualizer and play
+
 
 with col2:
     if st.button("⏭️ Next"):
