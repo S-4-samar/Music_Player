@@ -76,7 +76,12 @@ if os.path.exists(album_art_path):
     )
 
 # === NOW PLAYING ===
-st.markdown(f"<h4 style='color: cyan;'>🎵 Now Playing: {current_song}</h4>", unsafe_allow_html=True)
+st.markdown(f"""
+<h4 style='text-align: center; color: cyan; margin-top: 10px; margin-bottom: 8px;'>
+🎵 Now Playing: {current_song}
+</h4>
+""", unsafe_allow_html=True)
+
 
 # === STREAMLIT AUDIO PLAYER ===
 st.audio(audio_bytes, format='audio/mp3', start_time=0)
