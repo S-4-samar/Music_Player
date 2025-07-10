@@ -160,41 +160,41 @@ ul {
 </style>
 """, unsafe_allow_html=True)
 
-# st.markdown("""
-# <style>
-# .neon-stars-overlay {
-#     position: fixed;
-#     top: 0;
-#     left: 0;
-#     width: 100%;
-#     height: 100%;
-#     z-index: 0;
-#     pointer-events: none;
-# }
+st.markdown("""
+<style>
+.neon-stars-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
 
-# .neon-stars-overlay .star {
-#     position: absolute;
-#     width: 2px;
-#     height: 2px;
-#     border-radius: 50%;
-#     background: cyan;
-#     box-shadow: 0 0 8px cyan;
-#     animation: neon-blink 3s infinite ease-in-out;
-# }
+.neon-stars-overlay .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: cyan;
+    box-shadow: 0 0 8px cyan;
+    animation: neon-blink 3s infinite ease-in-out;
+}
 
-# @keyframes neon-blink {
-#     0%, 100% { opacity: 0.3; transform: scale(1); }
-#     50% { opacity: 1; transform: scale(1.4); }
-# }
-# </style>
+@keyframes neon-blink {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.4); }
+}
+</style>
 
-# <div class="neon-stars-overlay">
-# """ +
-# "\n".join([
-#     f'<div class="star" style="top:{i * 2 % 100}vh; left:{(i * i * 3) % 100}vw; animation-delay:{(i % 10) * 0.2}s;"></div>'
-#     for i in range(60)
-# ]) + "</div>"
-# , unsafe_allow_html=True)
+<div class="neon-stars-overlay">
+""" +
+"\n".join([
+    f'<div class="star" style="top:{i * 2 % 100}vh; left:{(i * i * 3) % 100}vw; animation-delay:{(i % 10) * 0.2}s;"></div>'
+    for i in range(60)
+]) + "</div>"
+, unsafe_allow_html=True)
 
 # === ALBUM ART ===
 if os.path.exists(album_art_path):
