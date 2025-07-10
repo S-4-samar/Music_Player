@@ -141,8 +141,7 @@ with col1:
     if st.button("▶️ Play"):
         st.session_state.is_playing = True
         st.session_state.last_played_index = st.session_state.song_index
-        st.experimental_rerun()  # Force rerun immediately to show visualizer and play
-
+        st.rerun()  # ✅ Updated from experimental_rerun()
 
 with col2:
     if st.button("⏭️ Next"):
