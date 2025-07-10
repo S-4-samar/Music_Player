@@ -4,43 +4,6 @@ import base64
 
 # === PAGE CONFIG ===
 st.set_page_config(page_title="🎷 Smart Music Player", layout="centered")
-st.markdown("<h2 style='text-align: center; color: white;'>🎵 Music Player</h2>", unsafe_allow_html=True)
-
-# === ALBUM ART IMAGE LOAD FIRST TO USE IN F-STRING ===
-base_dir = os.path.dirname(os.path.abspath(__file__))
-album_art_path = os.path.join(base_dir, "static", "album_art.png")
-
-if os.path.exists(album_art_path):
-    img_data = base64.b64encode(open(album_art_path, "rb").read()).decode()
-
-# === ROTATING ALBUM ART ===
-st.markdown(f"""
-<div style="
-    width: 220px;
-    height: 220px;
-    margin: 0 auto;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 6px solid rgba(0,255,255,0.3);
-    box-shadow: 0 0 30px rgba(0,255,255,0.6);
-    animation: spin 8s linear infinite;
-">
-    <img src="data:image/png;base64,{img_data}" style="
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 50%;
-        display: block;
-    ">
-</div>
-
-<style>
-@keyframes spin {{
-    from {{ transform: rotate(0deg); }}
-    to {{ transform: rotate(360deg); }}
-}}
-</style>
-""", unsafe_allow_html=True)
 
 # === SESSION STATE INIT ===
 if "song_index" not in st.session_state:
@@ -51,7 +14,9 @@ if "is_playing" not in st.session_state:
     st.session_state.is_playing = False
 
 # === Paths ===
+base_dir = os.path.dirname(os.path.abspath(__file__))
 songs_dir = os.path.join(base_dir, "songs")
+album_art_path = os.path.join(base_dir, "static", "album_art.png")
 
 # === LOAD SONGS ===
 if not os.path.exists(songs_dir):
@@ -68,157 +33,55 @@ current_song = songs[st.session_state.song_index]
 audio_file_path = os.path.join(songs_dir, current_song)
 audio_bytes = open(audio_file_path, 'rb').read()
 
-# === CSS ===
-st.markdown("""
-<style>
-body {
-    overflow-x: hidden;
-}
-.album-art img {
-    width: 90%;
-    max-width: 280px;
-    border-radius: 20px;
-    box-shadow: 0 5px 20px rgba(0,255,255,0.3);
-    transition: all 0.3s ease-in-out;
-}
-.visualizer {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    height: 80px;
-    margin-top: 10px;
-    gap: 4px;
-}
-.bar {
-    width: 6px;
-    height: 20px;
-    background: cyan;
-    animation: bounce 1s infinite ease-in-out;
-    border-radius: 10px;
-    box-shadow: 0 0 10px cyan;
-}
-.bar:nth-child(1) { animation-delay: 0s; }
-.bar:nth-child(2) { animation-delay: 0.2s; }
-.bar:nth-child(3) { animation-delay: 0.4s; }
-.bar:nth-child(4) { animation-delay: 0.6s; }
-.bar:nth-child(5) { animation-delay: 0.8s; }
-@keyframes bounce {
-    0%, 100% { height: 20px; }
-    50% { height: 60px; }
-}
-ul {
-    padding-left: 20px;
-}
-@media screen and (max-width: 600px) {
-    .album-art img {
-        width: 100%;
-        max-width: 180px;
-        margin-top: 10px;
-    }
-    h4 {
-        font-size: 16px !important;
-    }
-    .element-container button {
-        padding: 0.5rem 0.8rem !important;
-        font-size: 14px !important;
-    }
-    .visualizer {
-        height: 60px;
-        gap: 3px;
-    }
-}
-</style>
-""", unsafe_allow_html=True)
+# === ALBUM ART ===
+img_data = base64.b64encode(open(album_art_path, "rb").read()).decode()
 
-# === NEON STARS ===
-st.markdown("""
-<style>
-.neon-stars-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-}
+# === PAGE TITLE ===
+st.markdown("<h2 style='text-align: center; color: white;'>🎵 Music Player</h2>", unsafe_allow_html=True)
 
-.neon-stars-overlay .star {
-    position: absolute;
-    width: 2px;
-    height: 2px;
+# === CONDITIONAL ROTATION STYLE ===
+if st.session_state.is_playing:
+    rotation_style = """
+    <style>
+    .album-spin {
+        animation: spin 8s linear infinite;
+    }
+    @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    </style>
+    """
+else:
+    rotation_style = "<style>.album-spin { animation: none; }</style>"
+
+st.markdown(rotation_style, unsafe_allow_html=True)
+
+st.markdown(f"""
+<div style="
+    width: 220px;
+    height: 220px;
+    margin: 0 auto;
     border-radius: 50%;
-    background: cyan;
-    box-shadow: 0 0 8px cyan;
-    animation: neon-blink 3s infinite ease-in-out;
-}
-
-@keyframes neon-blink {
-    0%, 100% { opacity: 0.3; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.4); }
-}
-</style>
-
-<div class="neon-stars-overlay">
-""" +
-"\n".join([
-    f'<div class="star" style="top:{i * 2 % 100}vh; left:{(i * i * 3) % 100}vw; animation-delay:{(i % 10) * 0.2}s;"></div>'
-    for i in range(60)
-]) + "</div>"
-, unsafe_allow_html=True)
-
-# === VISUALIZER ===
-st.markdown("""
-<style>
-.visualizer {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    height: 80px;
-    margin: 10px 0 20px;
-    gap: 6px;
-}
-.bar {
-    width: 8px;
-    height: 20px;
-    background: cyan;
-    animation: bounce 1s infinite ease-in-out;
-    border-radius: 10px;
-    box-shadow: 0 0 10px cyan;
-}
-.bar:nth-child(1) { animation-delay: 0s; }
-.bar:nth-child(2) { animation-delay: 0.2s; }
-.bar:nth-child(3) { animation-delay: 0.4s; }
-.bar:nth-child(4) { animation-delay: 0.6s; }
-.bar:nth-child(5) { animation-delay: 0.8s; }
-
-@keyframes bounce {
-    0%, 100% { height: 20px; }
-    50% { height: 80px; }
-}
-</style>
-
-<div class='visualizer'>
-    <div class='bar'></div>
-    <div class='bar'></div>
-    <div class='bar'></div>
-    <div class='bar'></div>
-    <div class='bar'></div>
+    overflow: hidden;
+    border: 6px solid rgba(0,255,255,0.3);
+    box-shadow: 0 0 30px rgba(0,255,255,0.6);
+" class="album-spin">
+    <img src="data:image/png;base64,{img_data}" style="
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        display: block;
+    ">
 </div>
 """, unsafe_allow_html=True)
 
-# === NOW PLAYING ===
-st.markdown(f"""
-<h4 style='text-align: center; color: cyan; margin-top: 10px; margin-bottom: 8px;'>
-🎵 Now Playing: {current_song}
-</h4>
-""", unsafe_allow_html=True)
-
-# === STREAMLIT AUDIO PLAYER ===
+# === AUDIO PLAYER ===
 st.audio(audio_bytes, format='audio/mp3', start_time=0)
 
 # === CONTROLS ===
-col1, col2 = st.columns([1, 1])
+col1, col2, col3 = st.columns([1, 1, 1])
 
 with col1:
     if st.button("⏮️ Prev"):
@@ -227,9 +90,13 @@ with col1:
         st.rerun()
 
 with col2:
-    if st.button("⏭️ Next"):
-        st.session_state.song_index = (st.session_state.song_index + 1) % len(songs)
+    if st.button("▶️ Play"):
         st.session_state.is_playing = True
+        st.rerun()
+
+with col3:
+    if st.button("⏹️ Stop"):
+        st.session_state.is_playing = False
         st.rerun()
 
 # === PLAYLIST ===
@@ -240,7 +107,7 @@ with st.expander("📂 Playlist"):
         st.markdown(f"<li style='color: white;'>{icon}{song}</li>", unsafe_allow_html=True)
     st.markdown("</ul>", unsafe_allow_html=True)
 
-# === SIDEBAR ===
+# === SIDEBAR INFO ===
 with st.sidebar:
     st.markdown("## 🎶 About This App")
     st.markdown("""
