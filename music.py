@@ -21,13 +21,11 @@ st.markdown("""
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
+    display: block;
 }
-
-/* Only spin when playing */
 .spin {
     animation: spin 6s linear infinite;
 }
-
 @keyframes spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
