@@ -6,12 +6,13 @@ import base64
 st.set_page_config(page_title="🎷 Smart Music Player", layout="centered")
 st.markdown("<h2 style='text-align: center; color: white;'>🚀 Hyper Music Player</h2>", unsafe_allow_html=True)
 
-# === SESSION STATE INIT (important to avoid AttributeError) ===
+# === SESSION STATE INIT ===
 if "song_index" not in st.session_state:
     st.session_state.song_index = 0
+if "last_played_index" not in st.session_state:
+    st.session_state.last_played_index = -1
 if "is_playing" not in st.session_state:
     st.session_state.is_playing = False
-
 
 # === Paths ===
 base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -46,6 +47,31 @@ body {
     box-shadow: 0 5px 20px rgba(0,255,255,0.3);
     transition: all 0.3s ease-in-out;
 }
+.visualizer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 80px;
+    margin-top: 10px;
+    gap: 4px;
+}
+.bar {
+    width: 6px;
+    height: 20px;
+    background: cyan;
+    animation: bounce 1s infinite ease-in-out;
+    border-radius: 10px;
+    box-shadow: 0 0 10px cyan;
+}
+.bar:nth-child(1) { animation-delay: 0s; }
+.bar:nth-child(2) { animation-delay: 0.2s; }
+.bar:nth-child(3) { animation-delay: 0.4s; }
+.bar:nth-child(4) { animation-delay: 0.6s; }
+.bar:nth-child(5) { animation-delay: 0.8s; }
+@keyframes bounce {
+    0%, 100% { height: 20px; }
+    50% { height: 60px; }
+}
 ul {
     padding-left: 20px;
 }
@@ -62,6 +88,10 @@ ul {
         padding: 0.5rem 0.8rem !important;
         font-size: 14px !important;
     }
+    .visualizer {
+        height: 60px;
+        gap: 3px;
+    }
 }
 </style>
 """
@@ -77,6 +107,12 @@ if os.path.exists(album_art_path):
         </div>
         """, unsafe_allow_html=True
     )
+
+# === VISUALIZER ===
+if st.session_state.song_index != st.session_state.last_played_index:
+    st.session_state.is_playing = True
+    st.session_state.last_played_index = st.session_state.song_index
+
 if st.session_state.is_playing:
     st.markdown("""
     <div class='visualizer'>
@@ -88,7 +124,6 @@ if st.session_state.is_playing:
     </div>
     """, unsafe_allow_html=True)
 
-
 # === NOW PLAYING ===
 st.markdown(f"""
 <h4 style='text-align: center; color: cyan; margin-top: 10px; margin-bottom: 8px;'>
@@ -96,23 +131,36 @@ st.markdown(f"""
 </h4>
 """, unsafe_allow_html=True)
 
-
 # === STREAMLIT AUDIO PLAYER ===
 st.audio(audio_bytes, format='audio/mp3', start_time=0)
 
-# === CONTROLS (Previous & Next on same line) ===
-# === CONTROLS (Previous & Next on same line) ===
-col1, spacer, col2 = st.columns([1, 5, 1])
+# === CONTROLS (Previous & Next buttons close together) ===
+st.markdown("""
+<style>
+.button-row {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+</style>
+<div class="button-row">
+""", unsafe_allow_html=True)
+
+col1, col2 = st.columns([1, 1])
+
 with col1:
-    if st.button("⏭️ Next", key="next"):
-        st.session_state.song_index = (st.session_state.song_index + 1) % len(songs)
+    if st.button("⏮️ Prev"):
+        st.session_state.song_index = (st.session_state.song_index - 1) % len(songs)
         st.session_state.is_playing = False
 
 with col2:
-    if st.button("⏮️ Prev", key="prev"):
-        st.session_state.song_index = (st.session_state.song_index - 1) % len(songs)
+    if st.button("⏭️ Next"):
+        st.session_state.song_index = (st.session_state.song_index + 1) % len(songs)
         st.session_state.is_playing = False
-        
+
+st.markdown("</div>", unsafe_allow_html=True)
+
 # === PLAYLIST ===
 with st.expander("📂 Playlist"):
     st.markdown("<ul>", unsafe_allow_html=True)
