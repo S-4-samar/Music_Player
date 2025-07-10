@@ -130,7 +130,7 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # === STREAMLIT AUDIO PLAYER ===
-st.audio(audio_bytes, format='audio/mp3', start_time=0)
+# st.audio(audio_bytes, format='audio/mp3', start_time=0)
 
 # === CONTROLS (Play & Next close together) ===
 col1, col2 = st.columns([1, 1])
