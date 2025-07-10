@@ -89,8 +89,10 @@ h4 {
 .album-art {
   background: linear-gradient(45deg, #a03af6, #fc6076);
   border-radius: 20px;
-  height: 200px;
-  width: 200px;
+  height: auto;
+  max-height: 220px;
+  width: 100%;
+  max-width: 220px;
   margin: 0 auto 20px;
   display: flex;
   justify-content: center;
@@ -99,15 +101,23 @@ h4 {
   animation: rotateArt 8s linear infinite;
 }
 
-@keyframes rotateArt {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.album-art img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
 }
 
-.album-art i {
-  font-size: 60px;
-  color: white;
+/* Mobile Override */
+@media screen and (max-width: 600px) {
+  .album-art {
+    max-width: 160px;
+    max-height: 160px;
+  }
+  .album-art img {
+    max-width: 160px;
+  }
 }
+
 
 /* === Song Info === */
 .song-info h2 {
