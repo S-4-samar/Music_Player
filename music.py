@@ -120,8 +120,6 @@ if st.session_state.is_playing:
         <div class='bar'></div>
     </div>
     """, unsafe_allow_html=True)
-else:
-    st.audio(audio_bytes, format='audio/mp3', start_time=0)
 
 
 # === NOW PLAYING ===
