@@ -89,8 +89,8 @@ st.markdown("""
 .inline-buttons {
     display: flex;
     justify-content: space-between;
-    gap: 10px;
-    margin: 20px 0;
+    gap: 8px;
+    margin: 8px 0 0 0; /* Reduced top margin */
 }
 .inline-buttons div {
     flex: 1;
@@ -101,11 +101,19 @@ button[kind="secondary"] {
     font-weight: bold;
     border-radius: 10px !important;
     box-shadow: 0 0 10px cyan;
+    padding: 0.5rem 1rem !important;
+    margin: 0 !important;
+}
+h4 {
+    margin-bottom: 4px !important;
 }
 </style>
 """, unsafe_allow_html=True)
 
-# Streamlit buttons wrapped in styled divs
+# "Now Playing" with tighter spacing
+st.markdown(f"<h4 style='color: cyan; margin-bottom: 4px;'>🎵 Now Playing: {current_song}</h4>", unsafe_allow_html=True)
+
+# Buttons wrapped inline
 st.markdown('<div class="inline-buttons">', unsafe_allow_html=True)
 
 col1, col2 = st.columns(2)
@@ -121,7 +129,6 @@ with col2:
         st.session_state.is_playing = False
 
 st.markdown('</div>', unsafe_allow_html=True)
-
 
 # === PLAYLIST ===
 with st.expander("📂 Playlist"):
