@@ -130,6 +130,33 @@ st.markdown("""
     for i in range(60)
 ]) + "</div>"
 , unsafe_allow_html=True)
+st.markdown("""
+<style>
+/* Full-Screen Moving Grid Background */
+.grid-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: moveGrid 40s linear infinite;
+    z-index: 0;
+}
+
+/* Grid Movement Animation */
+@keyframes moveGrid {
+    0% { background-position: 0 0; }
+    100% { background-position: 40px 40px; }
+}
+</style>
+
+<div class="grid-background"></div>
+""", unsafe_allow_html=True)
+
 
 
 
