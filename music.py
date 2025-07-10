@@ -5,6 +5,32 @@ import base64
 # === PAGE CONFIG ===
 st.set_page_config(page_title="🎷 Smart Music Player", layout="centered")
 st.markdown("<h2 style='text-align: center; color: white;'>🎵 Music Player</h2>", unsafe_allow_html=True)
+st.markdown("""
+<style>
+/* === Moving Grid Background === */
+.grid-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    background: 
+        linear-gradient(transparent 1px, rgba(255, 255, 255, 0.05) 1px),
+        linear-gradient(90deg, transparent 1px, rgba(255, 255, 255, 0.05) 1px);
+    background-size: 40px 40px;
+    z-index: -10;
+    animation: moveGrid 30s linear infinite;
+}
+
+@keyframes moveGrid {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-40px, -40px); }
+}
+</style>
+
+<div class="grid-background"></div>
+""", unsafe_allow_html=True)
+
 
 # === SESSION STATE INIT ===
 if "song_index" not in st.session_state:
