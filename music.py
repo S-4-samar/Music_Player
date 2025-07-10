@@ -82,31 +82,17 @@ st.markdown(f"<h4 style='color: cyan;'>🎵 Now Playing: {current_song}</h4>", u
 st.audio(audio_bytes, format='audio/mp3', start_time=0)
 
 # === CONTROLS (Previous & Next on same line) ===
-# === CONTROLS (Fixed for mobile view using HTML + CSS) ===
-st.markdown("""
-<div style='display: flex; justify-content: space-between; width: 100%; margin-top: 10px;'>
-    <form action="#" method="post">
-        <button name="prev" type="submit" style="padding: 8px 16px; font-size: 16px; border-radius: 10px; border: none; background: cyan; color: black;">⏮️ Prev</button>
-    </form>
-    <form action="#" method="post">
-        <button name="next" type="submit" style="padding: 8px 16px; font-size: 16px; border-radius: 10px; border: none; background: cyan; color: black;">⏭️ Next</button>
-    </form>
-</div>
-""", unsafe_allow_html=True)
+col1, col2 = st.columns([1, 1])
 
-# === HANDLE BUTTON ACTIONS ===
-if st.session_state.get("button_submitted") != True:
-    params = st.query_params
-    if "next" in params:
-        st.session_state.song_index = (st.session_state.song_index + 1) % len(songs)
-        st.session_state.is_playing = False
-        st.session_state.button_submitted = True
-    elif "prev" in params:
+with col1:
+    if st.button("⏮️ Prev", key="prev"):
         st.session_state.song_index = (st.session_state.song_index - 1) % len(songs)
         st.session_state.is_playing = False
-        st.session_state.button_submitted = True
 
-
+with col2:
+    if st.button("⏭️ Next", key="next"):
+        st.session_state.song_index = (st.session_state.song_index + 1) % len(songs)
+        st.session_state.is_playing = False
 
 
 # === PLAYLIST ===
