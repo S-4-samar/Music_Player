@@ -48,7 +48,7 @@ elif st.session_state.theme_mode == "Light Mode":
     bg_color = "#ffffff"
     accent_color = "blue"
 
-# === APPLY GLOBAL CSS WITH BUTTON AND LIST TEXT COLORS ===
+
 st.markdown(f"""
 <style>
 html, body, [data-testid="stAppViewContainer"] {{
@@ -61,12 +61,17 @@ section[data-testid="stSidebar"] {{
     color: {text_color} !important;
 }}
 
+/* Force Button Text Color Globally */
 div.stButton > button {{
     color: {text_color} !important;
+    background-color: {'#0f0f1a' if st.session_state.theme_mode == "Dark Mode" else '#e0e0e0'} !important;
+    border: 1px solid {accent_color} !important;
 }}
 
-ul li {{
+/* Force Playlist List Item Colors */
+ul, ul li {{
     color: {text_color} !important;
+    list-style-type: none;
 }}
 </style>
 """, unsafe_allow_html=True)
