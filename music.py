@@ -239,6 +239,27 @@ with st.expander("📂 Playlist"):
         icon = "🔊 " if idx == st.session_state.song_index else ""
         st.markdown(f"<li style='color: white;'>{icon}{song}</li>", unsafe_allow_html=True)
     st.markdown("</ul>", unsafe_allow_html=True)
+    # === SIDEBAR BORDER STYLE ===
+st.markdown("""
+<style>
+section[data-testid="stSidebar"] {
+    border: 3px solid red;
+    border-radius: 20px;
+    box-shadow:
+        0 0 20px red,
+        0 0 40px red,
+        0 0 60px red;
+    padding: 10px;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# === SIDEBAR ===
+with st.sidebar:
+    st.markdown(""" 
+    ... your about box HTML here ...
+    """, unsafe_allow_html=True)
+
 
 # === SIDEBAR ===
 with st.sidebar:
