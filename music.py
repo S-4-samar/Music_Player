@@ -192,21 +192,7 @@ with col2:
         st.session_state.song_index = (st.session_state.song_index + 1) % len(songs)
         st.session_state.is_playing = True
         st.rerun()
-# === SEARCH SONG FEATURE ===
-search_query = st.text_input("🔎 Search for a song:")
 
-filtered_songs = [song for song in songs if search_query.lower() in song.lower()]
-
-if filtered_songs:
-    selected_song = st.selectbox("Select from search results:", filtered_songs)
-
-    if st.button("▶️ Play Selected Song"):
-        st.session_state.song_index = songs.index(selected_song)
-        st.session_state.is_playing = True
-        st.rerun()
-else:
-    if search_query:
-        st.info("No song found with that name.")
 
 # === PLAYLIST ===
 with st.expander("📂 Playlist"):
