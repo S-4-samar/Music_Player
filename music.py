@@ -86,6 +86,22 @@ elif st.session_state.theme_mode == "Light Mode":
     accent_color = "blue"
 
 
+st.markdown(f"""
+<style>
+section[data-testid="stSidebar"] {{
+    background: {bg_color} !important;
+    color: {text_color} !important;
+}}
+
+section[data-testid="stSidebar"] label,
+section[data-testid="stSidebar"] div[role="radiogroup"] label span {{
+    color: {text_color} !important;
+}}
+</style>
+""", unsafe_allow_html=True)
+
+
+
 # === ALBUM ART IMAGE LOAD FIRST TO USE IN F-STRING ===
 base_dir = os.path.dirname(os.path.abspath(__file__))
 album_art_path = os.path.join(base_dir, "static", "album_art.png")
