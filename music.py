@@ -88,19 +88,26 @@ elif st.session_state.theme_mode == "Light Mode":
 
 st.markdown(f"""
 <style>
+/* General Sidebar Text and Background */
+section[data-testid="stSidebar"] {{
+    background: {bg_color} !important;
+    color: {text_color} !important;
+}}
+
+/* Sidebar Labels (for things like 'Select Theme') */
+section[data-testid="stSidebar"] label {{
+    color: {text_color} !important;
+    font-weight: 600;
+}}
+
+/* Radio Button Labels Specifically */
+section[data-testid="stSidebar"] div[role="radiogroup"] label div,
 section[data-testid="stSidebar"] div[role="radiogroup"] label span {{
-    color: {text_color} !important;
-}}
-
-section[data-testid="stSidebar"] div[role="radiogroup"] label div {{
-    color: {text_color} !important;
-}}
-
-section[data-testid="stSidebar"] div[role="radiogroup"] label {{
     color: {text_color} !important;
 }}
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
