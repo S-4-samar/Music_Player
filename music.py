@@ -9,7 +9,7 @@ st.set_page_config(page_title="🎷 Smart Music Player", layout="centered")
 if "theme_mode" not in st.session_state:
     st.session_state.theme_mode = "Dark Mode"
 
-theme_choice = st.sidebar.radio("☾☼ Select Theme:", ["Dark Mode", "Light Mode"], 
+theme_choice = st.sidebar.radio("Select Theme ☾☼", ["Dark Mode", "Light Mode"], 
                                 index=0 if st.session_state.theme_mode == "Dark Mode" else 1)
 
 st.session_state.theme_mode = theme_choice
