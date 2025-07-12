@@ -48,7 +48,6 @@ elif st.session_state.theme_mode == "Light Mode":
     bg_color = "#ffffff"
     accent_color = "blue"
 
-
 st.markdown(f"""
 <style>
 html, body, [data-testid="stAppViewContainer"] {{
@@ -61,21 +60,22 @@ section[data-testid="stSidebar"] {{
     color: {text_color} !important;
 }}
 
-/* Force Button Text Color Globally */
 div.stButton > button {{
     color: {text_color} !important;
     background-color: {'#0f0f1a' if st.session_state.theme_mode == "Dark Mode" else '#e0e0e0'} !important;
     border: 1px solid {accent_color} !important;
 }}
 
-/* Force Playlist List Item Colors */
-ul, ul li {{
+/* Playlist Items Specifically */
+div.streamlit-expanderContent ul li {{
     color: {text_color} !important;
-    list-style-type: none;
+}}
+
+div.streamlit-expanderHeader {{
+    color: {text_color} !important;
 }}
 </style>
 """, unsafe_allow_html=True)
-
 
 # === ALBUM ART IMAGE LOAD FIRST TO USE IN F-STRING ===
 base_dir = os.path.dirname(os.path.abspath(__file__))
