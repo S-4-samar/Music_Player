@@ -167,45 +167,6 @@ st.markdown("""
 ]) + "</div>"
 , unsafe_allow_html=True)
 
-# === VISUALIZER ===
-# st.markdown("""
-# <style>
-# .visualizer {
-#     display: flex;
-#     justify-content: center;
-#     align-items: flex-end;
-#     height: 80px;
-#     margin: 10px 0 20px;
-#     gap: 6px;
-# }
-# .bar {
-#     width: 8px;
-#     height: 20px;
-#     background: cyan;
-#     animation: bounce 1s infinite ease-in-out;
-#     border-radius: 10px;
-#     box-shadow: 0 0 10px cyan;
-# }
-# .bar:nth-child(1) { animation-delay: 0s; }
-# .bar:nth-child(2) { animation-delay: 0.2s; }
-# .bar:nth-child(3) { animation-delay: 0.4s; }
-# .bar:nth-child(4) { animation-delay: 0.6s; }
-# .bar:nth-child(5) { animation-delay: 0.8s; }
-
-# @keyframes bounce {
-#     0%, 100% { height: 20px; }
-#     50% { height: 80px; }
-# }
-# </style>
-
-# <div class='visualizer'>
-#     <div class='bar'></div>
-#     <div class='bar'></div>
-#     <div class='bar'></div>
-#     <div class='bar'></div>
-#     <div class='bar'></div>
-# </div>
-# """, unsafe_allow_html=True)
 
 # === NOW PLAYING ===
 st.markdown(f"""
@@ -231,6 +192,25 @@ with col2:
         st.session_state.song_index = (st.session_state.song_index + 1) % len(songs)
         st.session_state.is_playing = True
         st.rerun()
+# === SEARCH SONG FEATURE ===
+search_query = st.text_input("🔎 Search for a song:")
+
+filtered_songs = [song for song in songs if search_query.lower() in song.lower()]
+
+if filtered_songs:
+    selected_song = st.selectbox("Select from search results:", filtered_songs)
+
+    if st.button("▶️ Play Selected Song"):
+        st.session_state.song_index = songs.index(selected_song)
+        st.session_state.is_playing = True
+        st.rerun()
+else:
+    if search_query:
+        st.info("No song found with that name.")
+
+# === PLAYLIST ===
+with st.expander("📂 Playlist"):
+
 
 # === PLAYLIST ===
 with st.expander("📂 Playlist"):
