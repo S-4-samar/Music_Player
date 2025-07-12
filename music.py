@@ -9,7 +9,7 @@ st.set_page_config(page_title="🎷 Smart Music Player", layout="centered")
 if "theme_mode" not in st.session_state:
     st.session_state.theme_mode = "Dark Mode"
 
-theme_choice = st.sidebar.radio("🎛️ Select Theme:", ["Dark Mode", "Light Mode"], 
+theme_choice = st.sidebar.radio("☾☼ Select Theme:", ["Dark Mode", "Light Mode"], 
                                 index=0 if st.session_state.theme_mode == "Dark Mode" else 1)
 
 st.session_state.theme_mode = theme_choice
@@ -396,7 +396,7 @@ with st.sidebar:
         <p>
         <strong>👨‍💻 Created by:</strong> <a href="https://www.linkedin.com/in/samar-abbas-773074278/" target="_blank" style="color: cyan;">Samar Abbas</a><br>
         <strong>📍 University of Narowal</strong><br>
-        <strong>🧠 Role:</strong> Developer, Designer, and Innovator
+        <strong>👨🏽‍💻 Role:</strong> Developer, Designer, and Innovator
         </p>
         <hr style="border: 1px solid cyan;">
         <p style="font-style: italic;">💡 Built to feel like Spotify crashed into a Cyberpunk rave club.</p>
