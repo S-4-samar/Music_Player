@@ -269,7 +269,7 @@ st.markdown("""
 """ +
 "\n".join([
     f'<div class="star" style="top:{i * 2 % 100}vh; left:{(i * i * 3) % 100}vw; animation-delay:{(i % 10) * 0.2}s;"></div>'
-    for i in range(60)
+    for i in range(100)
 ]) + "</div>"
 , unsafe_allow_html=True)
 
