@@ -395,7 +395,7 @@ with st.sidebar:
         </ul>
         <hr style="border: 1px solid cyan;">
         <p>
-        <strong>👨‍💻 Created by:</strong> <a href="https://www.linkedin.com/in/samar-abbas-773074278/" target="_blank" style="color: cyan;">Samar Abbas</a><br>
+        <strong>👨‍💻 Created by:</strong> <a href="https://www.linkedin.com/in/samar-abbas-95a235287?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" style="color: cyan;">Samar Abbas</a><br>
         <strong>📍 University of Narowal</strong><br>
         <strong>👨🏽‍💻 Role:</strong> Developer, Designer, and Innovator
         </p>
