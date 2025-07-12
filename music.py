@@ -254,6 +254,32 @@ section[data-testid="stSidebar"] hr {
     
 #     """, unsafe_allow_html=True)
 
+# === DARK/LIGHT MODE TOGGLE ===
+mode = st.sidebar.radio("🎛️ Select Theme:", ["Dark Mode", "Light Mode"])
+
+if mode == "Dark Mode":
+    st.markdown("""
+    <style>
+    body {
+        background-color: #0f0f1a;
+        color: white;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+elif mode == "Light Mode":
+    st.markdown("""
+    <style>
+    body {
+        background-color: #f0f0f0;
+        color: black;
+    }
+    section[data-testid="stSidebar"] {
+        background: #ffffff;
+        color: black;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
 # === SIDEBAR ===
 with st.sidebar:
