@@ -24,7 +24,7 @@ else:
     accent_color = "blue"
 
 # === NOW YOU CAN SAFELY USE text_color ===
-st.markdown(f"<h2 style='color: {text_color}; text-align: center;'>🎵 EchoLogic Player</h2>", unsafe_allow_html=True)
+st.markdown(f"<h2 style='color: {text_color}; text-align: center;'>🎵 EchoLogic </h2>", unsafe_allow_html=True)
 
 # Apply dynamic background color
 st.markdown(f"""
