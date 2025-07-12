@@ -4,7 +4,9 @@ import base64
 
 # === PAGE CONFIG ===
 st.set_page_config(page_title="🎷 Smart Music Player", layout="centered")
-st.markdown("<h2 style='text-align: center; color: white;'>🎵 Music Player</h2>", unsafe_allow_html=True)
+st.markdown(f"<h2 style='color: {text_color};'>🎵 Music Player</h2>", unsafe_allow_html=True)
+
+
 if "theme_mode" not in st.session_state:
     st.session_state.theme_mode = "Dark Mode"
 
@@ -13,41 +15,33 @@ theme_choice = st.sidebar.radio("🎛️ Select Theme:", ["Dark Mode", "Light Mo
 
 st.session_state.theme_mode = theme_choice
 
+# Dynamic Color Variables
 if st.session_state.theme_mode == "Dark Mode":
-    st.markdown("""
-    <style>
-    html, body, [data-testid="stAppViewContainer"] {
-        background-color: #0f0f1a !important;
-        color: white !important;
-    }
-    section[data-testid="stSidebar"] {
-        background: rgba(0,0,0,0.3) !important;
-        color: white !important;
-    }
-    .neon-stars-overlay .star {
-        background: cyan !important;
-        box-shadow: 0 0 8px cyan !important;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
+    bg_color = "#0f0f1a"
+    text_color = "white"
+    accent_color = "cyan"
 elif st.session_state.theme_mode == "Light Mode":
-    st.markdown("""
+    bg_color = "#ffffff"
+    text_color = "black"
+    accent_color = "blue"  # Or keep cyan if you prefer
+
+# Apply CSS with Dynamic Colors
+st.markdown(f"""
     <style>
-    html, body, [data-testid="stAppViewContainer"] {
-        background-color: #ffffff !important;
-        color: black !important;
-    }
-    section[data-testid="stSidebar"] {
-        background: #ffffff !important;
-        color: black !important;
-    }
-    .neon-stars-overlay .star {
-        background: cyan !important;
-        box-shadow: 0 0 8px cyan !important;
-    }
+    html, body, [data-testid="stAppViewContainer"] {{
+        background-color: {bg_color} !important;
+        color: {text_color} !important;
+    }}
+    section[data-testid="stSidebar"] {{
+        background: {bg_color} !important;
+        color: {text_color} !important;
+    }}
+    .neon-stars-overlay .star {{
+        background: {accent_color} !important;
+        box-shadow: 0 0 8px {accent_color} !important;
+    }}
     </style>
-    """, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 
 # === ALBUM ART IMAGE LOAD FIRST TO USE IN F-STRING ===
