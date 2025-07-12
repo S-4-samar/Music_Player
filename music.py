@@ -76,6 +76,15 @@ div.streamlit-expanderHeader {{
 }}
 </style>
 """, unsafe_allow_html=True)
+if st.session_state.theme_mode == "Dark Mode":
+    text_color = "white"
+    bg_color = "#0f0f1a"
+    accent_color = "cyan"
+elif st.session_state.theme_mode == "Light Mode":
+    text_color = "black"
+    bg_color = "#ffffff"
+    accent_color = "blue"
+
 
 # === ALBUM ART IMAGE LOAD FIRST TO USE IN F-STRING ===
 base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -267,11 +276,12 @@ with col2:
 
 # === PLAYLIST ===
 with st.expander("📂 Playlist"):
-    st.markdown("<ul>", unsafe_allow_html=True)
+    st.markdown(f"<ul style='color: {text_color};'>", unsafe_allow_html=True)
     for idx, song in enumerate(songs):
         icon = "🔊 " if idx == st.session_state.song_index else ""
-        st.markdown(f"<li style='color: white;'>{icon}{song}</li>", unsafe_allow_html=True)
+        st.markdown(f"<li>{icon}{song}</li>", unsafe_allow_html=True)
     st.markdown("</ul>", unsafe_allow_html=True)
+
     # === SIDEBAR BORDER STYLE ===
 st.markdown("""
 <style>
