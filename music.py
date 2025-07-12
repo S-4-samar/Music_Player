@@ -9,6 +9,42 @@ st.markdown("<h2 style='text-align: center; color: white;'>🎵 Music Player</h2
 # === ALBUM ART IMAGE LOAD FIRST TO USE IN F-STRING ===
 base_dir = os.path.dirname(os.path.abspath(__file__))
 album_art_path = os.path.join(base_dir, "static", "album_art.png")
+# === THEME TOGGLE WITH GLOBAL EFFECT ===
+if "theme_mode" not in st.session_state:
+    st.session_state.theme_mode = "Dark Mode"
+
+theme_choice = st.sidebar.radio("🎛️ Select Theme:", ["Dark Mode", "Light Mode"], 
+                                index=0 if st.session_state.theme_mode == "Dark Mode" else 1)
+
+st.session_state.theme_mode = theme_choice
+
+if st.session_state.theme_mode == "Dark Mode":
+    st.markdown("""
+    <style>
+    html, body {
+        background-color: #0f0f1a;
+        color: white;
+    }
+    section[data-testid="stSidebar"] {
+        background: rgba(0,0,0,0.3);
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+elif st.session_state.theme_mode == "Light Mode":
+    st.markdown("""
+    <style>
+    html, body {
+        background-color: #f0f0f0;
+        color: black;
+    }
+    section[data-testid="stSidebar"] {
+        background: #ffffff;
+        color: black;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
 
 if os.path.exists(album_art_path):
     img_data = base64.b64encode(open(album_art_path, "rb").read()).decode()
@@ -248,38 +284,7 @@ section[data-testid="stSidebar"] hr {
 """, unsafe_allow_html=True)
 
 
-# # === SIDEBAR ===
-# with st.sidebar:
-#     st.markdown(""" 
-    
-#     """, unsafe_allow_html=True)
 
-# === DARK/LIGHT MODE TOGGLE ===
-mode = st.sidebar.radio("🎛️ Select Theme:", ["Dark Mode", "Light Mode"])
-
-if mode == "Dark Mode":
-    st.markdown("""
-    <style>
-    body {
-        background-color: #0f0f1a;
-        color: white;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
-elif mode == "Light Mode":
-    st.markdown("""
-    <style>
-    body {
-        background-color: #f0f0f0;
-        color: black;
-    }
-    section[data-testid="stSidebar"] {
-        background: #ffffff;
-        color: black;
-    }
-    </style>
-    """, unsafe_allow_html=True)
 
 # === SIDEBAR ===
 with st.sidebar:
