@@ -88,17 +88,25 @@ elif st.session_state.theme_mode == "Light Mode":
 
 st.markdown(f"""
 <style>
+/* Sidebar Background and General Text Color */
 section[data-testid="stSidebar"] {{
     background: {bg_color} !important;
     color: {text_color} !important;
 }}
 
+/* Sidebar Headings and Labels */
 section[data-testid="stSidebar"] label,
+section[data-testid="stSidebar"] .st-emotion-cache-1fcbxyg span {{
+    color: {text_color} !important;
+}}
+
+/* Radio Options Specifically */
 section[data-testid="stSidebar"] div[role="radiogroup"] label span {{
     color: {text_color} !important;
 }}
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
