@@ -253,12 +253,44 @@ section[data-testid="stSidebar"] {
 }
 </style>
 """, unsafe_allow_html=True)
+st.markdown("""
+<style>
+section[data-testid="stSidebar"] {
+    max-height: 100vh;
+    overflow: hidden;
+}
 
-# === SIDEBAR ===
-with st.sidebar:
-    st.markdown(""" 
+/* Make sidebar content fit better */
+section[data-testid="stSidebar"] .about-box {
+    padding: 10px;
+    font-size: 14px;
+}
+
+section[data-testid="stSidebar"] ul {
+    padding-left: 16px;
+}
+
+section[data-testid="stSidebar"] h2 {
+    font-size: 18px;
+}
+
+section[data-testid="stSidebar"] p, 
+section[data-testid="stSidebar"] li {
+    margin-bottom: 6px;
+}
+
+section[data-testid="stSidebar"] hr {
+    margin: 8px 0;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
+# # === SIDEBAR ===
+# with st.sidebar:
+#     st.markdown(""" 
     
-    """, unsafe_allow_html=True)
+#     """, unsafe_allow_html=True)
 
 
 # === SIDEBAR ===
