@@ -9,6 +9,9 @@ st.set_page_config(page_title="🎷 Smart Music Player", layout="centered")
 if "theme_mode" not in st.session_state:
     st.session_state.theme_mode = "Dark Mode"
 
+# Temporary default value before applying logic
+text_color = "white" if st.session_state.theme_mode == "Dark Mode" else "black"
+
 st.sidebar.markdown(f"<b style='color: {text_color};'>Select Theme ☾☼</b>", unsafe_allow_html=True)
 
 theme_choice = st.sidebar.radio("", ["Dark Mode", "Light Mode"],
@@ -16,6 +19,7 @@ theme_choice = st.sidebar.radio("", ["Dark Mode", "Light Mode"],
 
 st.session_state.theme_mode = theme_choice
 
+# Update colors after theme selection
 if st.session_state.theme_mode == "Dark Mode":
     text_color = "white"
     bg_color = "#0f0f1a"
@@ -24,6 +28,7 @@ else:
     text_color = "black"
     bg_color = "#ffffff"
     accent_color = "blue"
+
 
 
 # === NOW YOU CAN SAFELY USE text_color ===
