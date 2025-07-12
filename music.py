@@ -9,7 +9,9 @@ st.set_page_config(page_title="🎷 Smart Music Player", layout="centered")
 if "theme_mode" not in st.session_state:
     st.session_state.theme_mode = "Dark Mode"
 
-theme_choice = st.sidebar.radio("Select Theme  ☾☼", ["Dark Mode", "Light Mode"], 
+st.sidebar.markdown(f"<b style='color: {text_color};'>Select Theme ☾☼</b>", unsafe_allow_html=True)
+
+theme_choice = st.sidebar.radio("", ["Dark Mode", "Light Mode"],
                                 index=0 if st.session_state.theme_mode == "Dark Mode" else 1)
 
 st.session_state.theme_mode = theme_choice
@@ -23,8 +25,9 @@ else:
     bg_color = "#ffffff"
     accent_color = "blue"
 
+
 # === NOW YOU CAN SAFELY USE text_color ===
-st.markdown(f"<h2 style='color: {text_color}; text-align: center;'>🎵 EchoLogic </h2>", unsafe_allow_html=True)
+st.markdown(f"<h2 style='color: {text_color}; text-align: center;'>🎵 Music Player </h2>", unsafe_allow_html=True)
 
 # Apply dynamic background color
 st.markdown(f"""
