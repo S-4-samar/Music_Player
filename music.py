@@ -39,18 +39,16 @@ section[data-testid="stSidebar"] {{
 }}
 </style>
 """, unsafe_allow_html=True)
-
 if st.session_state.theme_mode == "Dark Mode":
     text_color = "white"
     bg_color = "#0f0f1a"
     accent_color = "cyan"
-    button_text_color = "white"
 elif st.session_state.theme_mode == "Light Mode":
     text_color = "black"
     bg_color = "#ffffff"
     accent_color = "blue"
-    button_text_color = "black"
 
+# === APPLY GLOBAL CSS WITH BUTTON AND LIST TEXT COLORS ===
 st.markdown(f"""
 <style>
 html, body, [data-testid="stAppViewContainer"] {{
@@ -63,18 +61,15 @@ section[data-testid="stSidebar"] {{
     color: {text_color} !important;
 }}
 
-/* Streamlit Button Text */
 div.stButton > button {{
-    color: {button_text_color} !important;
+    color: {text_color} !important;
 }}
 
-/* Playlist Song Items */
 ul li {{
     color: {text_color} !important;
 }}
 </style>
 """, unsafe_allow_html=True)
-
 
 
 # === ALBUM ART IMAGE LOAD FIRST TO USE IN F-STRING ===
