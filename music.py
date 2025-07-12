@@ -289,7 +289,7 @@ with st.sidebar:
     <div class="about-box">
         <h2 style="color: cyan; text-align: center;">🎶 About This App</h2>
         <p>
-        <strong>Hyper Music Player</strong> is a neon-styled, club-vibe music player built with:
+        <strong>SJ Music Player</strong> is a neon-styled, club-vibe music player built with:
         </p>
         <ul>
             <li>🐍 <strong>Python 3</strong></li>
