@@ -257,7 +257,7 @@ section[data-testid="stSidebar"] {
 # === SIDEBAR ===
 with st.sidebar:
     st.markdown(""" 
-    ... your about box HTML here ...
+    
     """, unsafe_allow_html=True)
 
 
