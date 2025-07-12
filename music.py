@@ -242,18 +242,46 @@ with st.expander("📂 Playlist"):
 
 # === SIDEBAR ===
 with st.sidebar:
-    st.markdown("## 🎶 About This App")
     st.markdown("""
-    **Hyper Music Player** is a neon-styled, club-vibe music player built with:
+    <style>
+    .about-box {
+        padding: 20px;
+        border: 2px solid cyan;
+        border-radius: 15px;
+        background: rgba(0, 0, 0, 0.5);
+        box-shadow:
+            0 0 20px cyan,
+            0 0 40px cyan,
+            0 0 60px cyan,
+            inset 0 0 10px rgba(0,255,255,0.3);
+        transition: all 0.3s ease-in-out;
+    }
+    .about-box:hover {
+        box-shadow:
+            0 0 30px cyan,
+            0 0 60px cyan,
+            0 0 90px cyan,
+            inset 0 0 20px rgba(0,255,255,0.4);
+    }
+    </style>
 
-    - 🐍 **Python 3**
-    - 🎷 **Streamlit**
-    - 🖼️ **Base64 Album Art Embedding**
-
-    ---
-    **👨‍💻 Created by:** [Samar Abbas](https://www.linkedin.com/in/samar-abbas-773074278/)  
-    **📍 University of Narowal**  
-    **🧠 Role:** Developer, Designer, and Innovator  
-    """)
-    st.markdown("---")
-    st.markdown("💡 *Built to feel like Spotify crashed into a Cyberpunk rave club.*")
+    <div class="about-box">
+        <h2 style="color: cyan; text-align: center;">🎶 About This App</h2>
+        <p>
+        <strong>Hyper Music Player</strong> is a neon-styled, club-vibe music player built with:
+        </p>
+        <ul>
+            <li>🐍 <strong>Python 3</strong></li>
+            <li>🎷 <strong>Streamlit</strong></li>
+            <li>🖼️ <strong>Base64 Album Art Embedding</strong></li>
+        </ul>
+        <hr style="border: 1px solid cyan;">
+        <p>
+        <strong>👨‍💻 Created by:</strong> <a href="https://www.linkedin.com/in/samar-abbas-773074278/" target="_blank" style="color: cyan;">Samar Abbas</a><br>
+        <strong>📍 University of Narowal</strong><br>
+        <strong>🧠 Role:</strong> Developer, Designer, and Innovator
+        </p>
+        <hr style="border: 1px solid cyan;">
+        <p style="font-style: italic;">💡 Built to feel like Spotify crashed into a Cyberpunk rave club.</p>
+    </div>
+    """, unsafe_allow_html=True)
