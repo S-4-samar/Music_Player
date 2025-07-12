@@ -4,9 +4,8 @@ import base64
 
 # === PAGE CONFIG ===
 st.set_page_config(page_title="🎷 Smart Music Player", layout="centered")
-st.markdown(f"<h2 style='color: {text_color};'>🎵 Music Player</h2>", unsafe_allow_html=True)
 
-
+# === THEME TOGGLE FIRST ===
 if "theme_mode" not in st.session_state:
     st.session_state.theme_mode = "Dark Mode"
 
@@ -15,32 +14,30 @@ theme_choice = st.sidebar.radio("🎛️ Select Theme:", ["Dark Mode", "Light Mo
 
 st.session_state.theme_mode = theme_choice
 
-# Dynamic Color Variables
 if st.session_state.theme_mode == "Dark Mode":
-    bg_color = "#0f0f1a"
     text_color = "white"
+    bg_color = "#0f0f1a"
     accent_color = "cyan"
-elif st.session_state.theme_mode == "Light Mode":
-    bg_color = "#ffffff"
+else:
     text_color = "black"
-    accent_color = "blue"  # Or keep cyan if you prefer
+    bg_color = "#ffffff"
+    accent_color = "blue"
 
-# Apply CSS with Dynamic Colors
+# === NOW YOU CAN SAFELY USE text_color ===
+st.markdown(f"<h2 style='color: {text_color}; text-align: center;'>🎵 Music Player</h2>", unsafe_allow_html=True)
+
+# Apply dynamic background color
 st.markdown(f"""
-    <style>
-    html, body, [data-testid="stAppViewContainer"] {{
-        background-color: {bg_color} !important;
-        color: {text_color} !important;
-    }}
-    section[data-testid="stSidebar"] {{
-        background: {bg_color} !important;
-        color: {text_color} !important;
-    }}
-    .neon-stars-overlay .star {{
-        background: {accent_color} !important;
-        box-shadow: 0 0 8px {accent_color} !important;
-    }}
-    </style>
+<style>
+html, body, [data-testid="stAppViewContainer"] {{
+    background-color: {bg_color} !important;
+    color: {text_color} !important;
+}}
+section[data-testid="stSidebar"] {{
+    background: {bg_color} !important;
+    color: {text_color} !important;
+}}
+</style>
 """, unsafe_allow_html=True)
 
 
