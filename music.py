@@ -5,6 +5,50 @@ import base64
 # === PAGE CONFIG ===
 st.set_page_config(page_title="🎷 Smart Music Player", layout="centered")
 st.markdown("<h2 style='text-align: center; color: white;'>🎵 Music Player</h2>", unsafe_allow_html=True)
+if "theme_mode" not in st.session_state:
+    st.session_state.theme_mode = "Dark Mode"
+
+theme_choice = st.sidebar.radio("🎛️ Select Theme:", ["Dark Mode", "Light Mode"], 
+                                index=0 if st.session_state.theme_mode == "Dark Mode" else 1)
+
+st.session_state.theme_mode = theme_choice
+
+if st.session_state.theme_mode == "Dark Mode":
+    st.markdown("""
+    <style>
+    html, body, [data-testid="stAppViewContainer"] {
+        background-color: #0f0f1a !important;
+        color: white !important;
+    }
+    section[data-testid="stSidebar"] {
+        background: rgba(0,0,0,0.3) !important;
+        color: white !important;
+    }
+    .neon-stars-overlay .star {
+        background: cyan !important;
+        box-shadow: 0 0 8px cyan !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+elif st.session_state.theme_mode == "Light Mode":
+    st.markdown("""
+    <style>
+    html, body, [data-testid="stAppViewContainer"] {
+        background-color: #ffffff !important;
+        color: black !important;
+    }
+    section[data-testid="stSidebar"] {
+        background: #ffffff !important;
+        color: black !important;
+    }
+    .neon-stars-overlay .star {
+        background: cyan !important;
+        box-shadow: 0 0 8px cyan !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
 
 # === ALBUM ART IMAGE LOAD FIRST TO USE IN F-STRING ===
 base_dir = os.path.dirname(os.path.abspath(__file__))
