@@ -210,10 +210,6 @@ else:
 
 # === PLAYLIST ===
 with st.expander("📂 Playlist"):
-
-
-# === PLAYLIST ===
-with st.expander("📂 Playlist"):
     st.markdown("<ul>", unsafe_allow_html=True)
     for idx, song in enumerate(songs):
         icon = "🔊 " if idx == st.session_state.song_index else ""
