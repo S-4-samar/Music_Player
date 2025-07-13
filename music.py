@@ -193,7 +193,7 @@ components.html(f"""
 """, height=200)
 
 # === HANDLE RECOGNIZED COMMAND ===
-command = st.experimental_get_query_params().get("command", [None])[0]
+command = st.query_params.get("command", [None])[0]
 
 if command:
     st.success(f"✅ Recognized Command: {command.lower()}")
