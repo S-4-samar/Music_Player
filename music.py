@@ -251,11 +251,11 @@ section[data-testid="stSidebar"] {
     box-shadow: 0 0 20px red;
     padding: 8px;
     max-height: 100vh;
-    overflow: hidden;
+    overflow-y: auto;
 }
 
 .about-box {
-    padding: 10px;
+    padding: 8px;
     border: 1px solid cyan;
     border-radius: 10px;
     background: rgba(0, 0, 0, 0.4);
@@ -263,21 +263,29 @@ section[data-testid="stSidebar"] {
 }
 
 .about-box h2 {
-    font-size: 16px;
-    margin-bottom: 8px;
+    font-size: 14px;
+    margin-bottom: 6px;
 }
 
-.about-box p, .about-box ul li {
-    font-size: 12px;
-    margin: 4px 0;
+.about-box p,
+.about-box ul li {
+    font-size: 11px;
+    margin: 2px 0;
+    line-height: 1.2;
 }
 
 .about-box ul {
-    padding-left: 15px;
+    padding-left: 14px;
 }
 
 .about-box hr {
-    margin: 6px 0;
+    margin: 4px 0;
+}
+
+/* Make sidebar radio buttons smaller */
+section[data-testid="stSidebar"] label,
+section[data-testid="stSidebar"] div[role="radiogroup"] label span {
+    font-size: 12px !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -285,16 +293,19 @@ section[data-testid="stSidebar"] {
 with st.sidebar:
     st.markdown("""
     <div class="about-box">
-        <h2 style="color: cyan; text-align: center;">🎶 About</h2>
-        <p><strong>SJ Music Player</strong> is built with:</p>
+        <h2 style="color: cyan; text-align: center;">🎶 About This App</h2>
+        <p><strong>SJ Music Player</strong> is a neon-styled, club-vibe music player built with:</p>
         <ul>
-            <li>🐍 Python 3</li>
-            <li>🎷 Streamlit</li>
+            <li>🐍 <strong>Python 3</strong></li>
+            <li>🎷 <strong>Streamlit</strong></li>
+            <li>🖼️ <strong>Base64 Album Art Embedding</strong></li>
         </ul>
-        <hr>
-        <p><strong>👨‍💻 By:</strong> <a href="https://www.linkedin.com/in/samar-abbas-95a235287" target="_blank" style="color: cyan;">Samar Abbas</a></p>
-        <p><strong>📍 University of Narowal</strong></p>
-        <hr>
-        <p style="font-style: italic;">💡 Cyberpunk vibe music player.</p>
+        <hr style="border: 1px solid cyan;">
+        <p><strong>👨‍💻 Created by:</strong> <a href="https://www.linkedin.com/in/samar-abbas-95a235287" target="_blank" style="color: cyan;">Samar Abbas</a><br>
+        <strong>📍 University of Narowal</strong><br>
+        <strong>👨🏽‍💻 Role:</strong> Developer, Designer, and Innovator</p>
+        <hr style="border: 1px solid cyan;">
+        <p style="font-style: italic;">💡 Built to feel like Spotify crashed into a Cyberpunk rave club.</p>
     </div>
     """, unsafe_allow_html=True)
+
