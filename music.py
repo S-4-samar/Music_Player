@@ -246,52 +246,58 @@ section[data-testid="stSidebar"] {
 st.markdown("""
 <style>
 section[data-testid="stSidebar"] {
-    border: 2px solid red;
-    border-radius: 15px;
-    box-shadow: 0 0 20px red;
-    padding: 8px;
     max-height: 100vh;
-    overflow-y: auto;
+    overflow: hidden;
 }
 
-.about-box {
-    padding: 8px;
-    border: 1px solid cyan;
-    border-radius: 10px;
-    background: rgba(0, 0, 0, 0.4);
-    box-shadow: 0 0 15px cyan, inset 0 0 5px rgba(0,255,255,0.3);
-}
-
-.about-box h2 {
+/* Make sidebar content fit better */
+section[data-testid="stSidebar"] .about-box {
+    padding: 10px;
     font-size: 14px;
+}
+
+section[data-testid="stSidebar"] ul {
+    padding-left: 16px;
+}
+
+section[data-testid="stSidebar"] h2 {
+    font-size: 18px;
+}
+
+section[data-testid="stSidebar"] p, 
+section[data-testid="stSidebar"] li {
     margin-bottom: 6px;
 }
 
-.about-box p,
-.about-box ul li {
-    font-size: 11px;
-    margin: 2px 0;
-    line-height: 1.2;
-}
-
-.about-box ul {
-    padding-left: 14px;
-}
-
-.about-box hr {
-    margin: 4px 0;
-}
-
-/* Make sidebar radio buttons smaller */
-section[data-testid="stSidebar"] label,
-section[data-testid="stSidebar"] div[role="radiogroup"] label span {
-    font-size: 12px !important;
+section[data-testid="stSidebar"] hr {
+    margin: 8px 0;
 }
 </style>
 """, unsafe_allow_html=True)
 
 with st.sidebar:
     st.markdown("""
+    <style>
+    .about-box {
+        padding: 20px;
+        border: 2px solid cyan;
+        border-radius: 15px;
+        background: rgba(0, 0, 0, 0.5);
+        box-shadow:
+            0 0 20px cyan,
+            0 0 40px cyan,
+            0 0 60px cyan,
+            inset 0 0 10px rgba(0,255,255,0.3);
+        transition: all 0.3s ease-in-out;
+    }
+    .about-box:hover {
+        box-shadow:
+            0 0 30px cyan,
+            0 0 60px cyan,
+            0 0 90px cyan,
+            inset 0 0 20px rgba(0,255,255,0.4);
+    }
+    </style>
     <div class="about-box">
         <h2 style="color: cyan; text-align: center;">🎶 About This App</h2>
         <p><strong>SJ Music Player</strong> is a neon-styled, club-vibe music player built with:</p>
@@ -308,4 +314,5 @@ with st.sidebar:
         <p style="font-style: italic;">💡 Built to feel like Spotify crashed into a Cyberpunk rave club.</p>
     </div>
     """, unsafe_allow_html=True)
+
 
