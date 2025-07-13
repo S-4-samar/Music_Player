@@ -260,7 +260,7 @@ section[data-testid="stSidebar"] {
 
 @media screen and (max-width: 600px) {
     .about-box {
-        height: 95vh;
+        height: 80vh;
         font-size: 13px;
     }
 }
