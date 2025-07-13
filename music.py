@@ -23,7 +23,6 @@ else:
     bg_color = "#ffffff"
     accent_color = "blue"
 
-
 # === NOW YOU CAN SAFELY USE text_color ===
 st.markdown(f"<h2 style='color: {text_color}; text-align: center;'>🎵 Music Player </h2>", unsafe_allow_html=True)
 
@@ -40,78 +39,6 @@ section[data-testid="stSidebar"] {{
 }}
 </style>
 """, unsafe_allow_html=True)
-if st.session_state.theme_mode == "Dark Mode":
-    text_color = "white"
-    bg_color = "#0f0f1a"
-    accent_color = "cyan"
-elif st.session_state.theme_mode == "Light Mode":
-    text_color = "black"
-    bg_color = "#ffffff"
-    accent_color = "blue"
-
-st.markdown(f"""
-<style>
-html, body, [data-testid="stAppViewContainer"] {{
-    background-color: {bg_color} !important;
-    color: {text_color} !important;
-}}
-
-section[data-testid="stSidebar"] {{
-    background: {bg_color} !important;
-    color: {text_color} !important;
-}}
-
-div.stButton > button {{
-    color: {text_color} !important;
-    background-color: {'#0f0f1a' if st.session_state.theme_mode == "Dark Mode" else '#e0e0e0'} !important;
-    border: 1px solid {accent_color} !important;
-}}
-
-/* Playlist Items Specifically */
-div.streamlit-expanderContent ul li {{
-    color: {text_color} !important;
-}}
-
-div.streamlit-expanderHeader {{
-    color: {text_color} !important;
-}}
-</style>
-""", unsafe_allow_html=True)
-if st.session_state.theme_mode == "Dark Mode":
-    text_color = "white"
-    bg_color = "#0f0f1a"
-    accent_color = "cyan"
-elif st.session_state.theme_mode == "Light Mode":
-    text_color = "black"
-    bg_color = "#ffffff"
-    accent_color = "blue"
-
-
-st.markdown(f"""
-<style>
-/* General Sidebar Text and Background */
-section[data-testid="stSidebar"] {{
-    background: {bg_color} !important;
-    color: {text_color} !important;
-}}
-
-/* Sidebar Labels (for things like 'Select Theme') */
-section[data-testid="stSidebar"] label {{
-    color: {text_color} !important;
-    font-weight: 600;
-}}
-
-/* Radio Button Labels Specifically */
-section[data-testid="stSidebar"] div[role="radiogroup"] label div,
-section[data-testid="stSidebar"] div[role="radiogroup"] label span {{
-    color: {text_color} !important;
-}}
-</style>
-""", unsafe_allow_html=True)
-
-
-
-
 
 # === ALBUM ART IMAGE LOAD FIRST TO USE IN F-STRING ===
 base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -130,15 +57,13 @@ st.markdown(f"""
     overflow: hidden;
     border: 6px solid rgba(0,255,255,0.3);
     box-shadow: 0 0 30px rgba(0,255,255,0.6);
-    animation: spin 8s linear infinite;
-">
+    animation: spin 8s linear infinite;">
     <img src="data:image/png;base64,{img_data}" style="
         width: 100%;
         height: 100%;
         object-fit: cover;
         border-radius: 50%;
-        display: block;
-    ">
+        display: block;">
 </div>
 
 <style>
@@ -216,64 +141,8 @@ body {
 ul {
     padding-left: 20px;
 }
-@media screen and (max-width: 600px) {
-    .album-art img {
-        width: 100%;
-        max-width: 180px;
-        margin-top: 10px;
-    }
-    h4 {
-        font-size: 16px !important;
-    }
-    .element-container button {
-        padding: 0.5rem 0.8rem !important;
-        font-size: 14px !important;
-    }
-    .visualizer {
-        height: 60px;
-        gap: 3px;
-    }
-}
 </style>
 """, unsafe_allow_html=True)
-
-# === NEON STARS ===
-st.markdown("""
-<style>
-.neon-stars-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-}
-
-.neon-stars-overlay .star {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    border-radius: 50%;
-    background: cyan;
-    box-shadow: 0 0 8px cyan;
-    animation: neon-blink 3s infinite ease-in-out;
-}
-
-@keyframes neon-blink {
-    0%, 100% { opacity: 0.3; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.4); }
-}
-</style>
-
-<div class="neon-stars-overlay">
-""" +
-"\n".join([
-    f'<div class="star" style="top:{i * 2 % 100}vh; left:{(i * i * 3) % 100}vw; animation-delay:{(i % 10) * 0.2}s;"></div>'
-    for i in range(100)
-]) + "</div>"
-, unsafe_allow_html=True)
-
 
 # === NOW PLAYING ===
 st.markdown(f"""
@@ -300,7 +169,6 @@ with col2:
         st.session_state.is_playing = True
         st.rerun()
 
-
 # === PLAYLIST ===
 with st.expander("📂 Playlist"):
     st.markdown(f"<ul style='color: {text_color};'>", unsafe_allow_html=True)
@@ -308,55 +176,6 @@ with st.expander("📂 Playlist"):
         icon = "🔊 " if idx == st.session_state.song_index else ""
         st.markdown(f"<li>{icon}{song}</li>", unsafe_allow_html=True)
     st.markdown("</ul>", unsafe_allow_html=True)
-
-    # === SIDEBAR BORDER STYLE ===
-st.markdown("""
-<style>
-section[data-testid="stSidebar"] {
-    border: 3px solid red;
-    border-radius: 20px;
-    box-shadow:
-        0 0 20px red,
-        0 0 40px red,
-        0 0 60px red;
-    padding: 10px;
-}
-</style>
-""", unsafe_allow_html=True)
-st.markdown("""
-<style>
-section[data-testid="stSidebar"] {
-    max-height: 100vh;
-    overflow: hidden;
-}
-
-/* Make sidebar content fit better */
-section[data-testid="stSidebar"] .about-box {
-    padding: 10px;
-    font-size: 14px;
-}
-
-section[data-testid="stSidebar"] ul {
-    padding-left: 16px;
-}
-
-section[data-testid="stSidebar"] h2 {
-    font-size: 18px;
-}
-
-section[data-testid="stSidebar"] p, 
-section[data-testid="stSidebar"] li {
-    margin-bottom: 6px;
-}
-
-section[data-testid="stSidebar"] hr {
-    margin: 8px 0;
-}
-</style>
-""", unsafe_allow_html=True)
-
-
-
 
 # === SIDEBAR ===
 with st.sidebar:
@@ -395,11 +214,11 @@ with st.sidebar:
         </ul>
         <hr style="border: 1px solid cyan;">
         <p>
-        <strong>👨‍💻 Created by:</strong> <a href="https://www.linkedin.com/in/samar-abbas-95a235287?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" style="color: cyan;">Samar Abbas</a><br>
+        <strong>👨‍💻 Created by:</strong> <a href="https://www.linkedin.com/in/samar-abbas-773074278/" target="_blank" style="color: cyan;">Samar Abbas</a><br>
         <strong>📍 University of Narowal</strong><br>
-        <strong>👨🏽‍💻 Role:</strong> Developer, Designer, and Innovator
+        <strong>🧠 Role:</strong> Developer, Designer, and Innovator
         </p>
         <hr style="border: 1px solid cyan;">
         <p style="font-style: italic;">💡 Built to feel like Spotify crashed into a Cyberpunk rave club.</p>
     </div>
-    """, unsafe_allow_html=True) 
+    """, unsafe_allow_html=True)
