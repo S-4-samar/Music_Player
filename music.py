@@ -298,21 +298,24 @@ with st.sidebar:
             inset 0 0 20px rgba(0,255,255,0.4);
     }
     </style>
+
     <div class="about-box">
         <h2 style="color: cyan; text-align: center;">🎶 About This App</h2>
-        <p><strong>SJ Music Player</strong> is a neon-styled, club-vibe music player built with:</p>
+        <p>
+        <strong>Hyper Music Player</strong> is a neon-styled, club-vibe music player built with:
+        </p>
         <ul>
             <li>🐍 <strong>Python 3</strong></li>
             <li>🎷 <strong>Streamlit</strong></li>
             <li>🖼️ <strong>Base64 Album Art Embedding</strong></li>
         </ul>
         <hr style="border: 1px solid cyan;">
-        <p><strong>👨‍💻 Created by:</strong> <a href="https://www.linkedin.com/in/samar-abbas-95a235287" target="_blank" style="color: cyan;">Samar Abbas</a><br>
+        <p>
+        <strong>👨‍💻 Created by:</strong> <a href="https://www.linkedin.com/in/samar-abbas-773074278/" target="_blank" style="color: cyan;">Samar Abbas</a><br>
         <strong>📍 University of Narowal</strong><br>
-        <strong>👨🏽‍💻 Role:</strong> Developer, Designer, and Innovator</p>
+        <strong>🧠 Role:</strong> Developer, Designer, and Innovator
+        </p>
         <hr style="border: 1px solid cyan;">
         <p style="font-style: italic;">💡 Built to feel like Spotify crashed into a Cyberpunk rave club.</p>
     </div>
     """, unsafe_allow_html=True)
-
-
