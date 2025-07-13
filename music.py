@@ -1,6 +1,7 @@
 import os
 import streamlit as st
 import base64
+import speech_recognition as sr
 
 # === PAGE CONFIG ===
 st.set_page_config(page_title="🎷 Smart Music Player", layout="centered")
@@ -171,7 +172,6 @@ if not songs:
     st.stop()
 
 # === Voice Command Controls ===
-import speech_recognition as sr
 
 def listen_for_command():
     recognizer = sr.Recognizer()
