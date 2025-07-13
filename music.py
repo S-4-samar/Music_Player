@@ -187,6 +187,44 @@ st.markdown("""
     for i in range(100)
 ]) + "</div>", unsafe_allow_html=True)
 
+st.markdown(f"""
+<style>
+.ray-overlay {{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}}
+
+.ray {{
+    position: absolute;
+    top: -20%;
+    left: -20%;
+    width: 300%;
+    height: 300%;
+    background: radial-gradient(closest-side, rgba(255,255,255,0.15), transparent 80%);
+    transform: rotate(45deg);
+    animation: raysMove 10s linear infinite alternate;
+    mix-blend-mode: overlay;
+    opacity: 0.2;
+    filter: blur(60px);
+}}
+
+@keyframes raysMove {{
+    0% {{ transform: rotate(45deg) translateX(0px); }}
+    100% {{ transform: rotate(45deg) translateX(100px); }}
+}}
+</style>
+
+<div class="ray-overlay">
+    <div class="ray"></div>
+</div>
+""", unsafe_allow_html=True)
+
+
 st.markdown(f"<h4 style='text-align: center; color: cyan; margin-top: 10px; margin-bottom: 8px;'>🎵 Now Playing: {current_song}</h4>", unsafe_allow_html=True)
 
 st.audio(audio_bytes, format='audio/mp3', start_time=0)
