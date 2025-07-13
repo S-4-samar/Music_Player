@@ -16,22 +16,20 @@ if os.path.exists(album_art_path):
 # === ROTATING ALBUM ART ===
 st.markdown(f"""
 <div style="
-    width: 220px;
-    height: 220px;
+    width: 180px;
+    height: 180px;
     margin: 0 auto;
     border-radius: 50%;
     overflow: hidden;
-    border: 6px solid rgba(0,255,255,0.3);
-    box-shadow: 0 0 30px rgba(0,255,255,0.6);
-    animation: spin 8s linear infinite;
-">
+    border: 4px solid rgba(0,255,255,0.3);
+    box-shadow: 0 0 20px rgba(0,255,255,0.6);
+    animation: spin 8s linear infinite;">
     <img src="data:image/png;base64,{img_data}" style="
         width: 100%;
         height: 100%;
         object-fit: cover;
         border-radius: 50%;
-        display: block;
-    ">
+        display: block;">
 </div>
 
 <style>
@@ -73,10 +71,11 @@ st.markdown("""
 <style>
 body {
     overflow-x: hidden;
+    margin: 0;
 }
 .album-art img {
     width: 90%;
-    max-width: 280px;
+    max-width: 200px;
     border-radius: 20px;
     box-shadow: 0 5px 20px rgba(0,255,255,0.3);
     transition: all 0.3s ease-in-out;
@@ -85,12 +84,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    height: 80px;
+    height: 60px;
     margin-top: 10px;
-    gap: 4px;
+    gap: 3px;
 }
 .bar {
-    width: 6px;
+    width: 5px;
     height: 20px;
     background: cyan;
     animation: bounce 1s infinite ease-in-out;
@@ -104,27 +103,27 @@ body {
 .bar:nth-child(5) { animation-delay: 0.8s; }
 @keyframes bounce {
     0%, 100% { height: 20px; }
-    50% { height: 60px; }
+    50% { height: 40px; }
 }
 ul {
-    padding-left: 20px;
+    padding-left: 16px;
 }
 @media screen and (max-width: 600px) {
     .album-art img {
-        width: 100%;
-        max-width: 180px;
-        margin-top: 10px;
+        width: 80%;
+        max-width: 150px;
+        margin-top: 5px;
     }
     h4 {
-        font-size: 16px !important;
-    }
-    .element-container button {
-        padding: 0.5rem 0.8rem !important;
         font-size: 14px !important;
     }
+    .element-container button {
+        padding: 0.4rem 0.7rem !important;
+        font-size: 12px !important;
+    }
     .visualizer {
-        height: 60px;
-        gap: 3px;
+        height: 50px;
+        gap: 2px;
     }
 }
 </style>
@@ -164,9 +163,7 @@ st.markdown("""
 "\n".join([
     f'<div class="star" style="top:{i * 2 % 100}vh; left:{(i * i * 3) % 100}vw; animation-delay:{(i % 10) * 0.2}s;"></div>'
     for i in range(60)
-]) + "</div>"
-, unsafe_allow_html=True)
-
+]) + "</div>", unsafe_allow_html=True)
 
 # === NOW PLAYING ===
 st.markdown(f"""
@@ -193,7 +190,6 @@ with col2:
         st.session_state.is_playing = True
         st.rerun()
 
-
 # === PLAYLIST ===
 with st.expander("📂 Playlist"):
     st.markdown("<ul>", unsafe_allow_html=True)
@@ -201,97 +197,60 @@ with st.expander("📂 Playlist"):
         icon = "🔊 " if idx == st.session_state.song_index else ""
         st.markdown(f"<li style='color: white;'>{icon}{song}</li>", unsafe_allow_html=True)
     st.markdown("</ul>", unsafe_allow_html=True)
-    # === SIDEBAR BORDER STYLE ===
-st.markdown("""
-<style>
-section[data-testid="stSidebar"] {
-    border: 3px solid red;
-    border-radius: 20px;
-    box-shadow:
-        0 0 20px red,
-        0 0 40px red,
-        0 0 60px red;
-    padding: 10px;
-}
-</style>
-""", unsafe_allow_html=True)
-st.markdown("""
-<style>
-section[data-testid="stSidebar"] {
-    max-height: 100vh;
-    overflow: hidden;
-}
-
-/* Make sidebar content fit better */
-section[data-testid="stSidebar"] .about-box {
-    padding: 10px;
-    font-size: 14px;
-}
-
-section[data-testid="stSidebar"] ul {
-    padding-left: 16px;
-}
-
-section[data-testid="stSidebar"] h2 {
-    font-size: 18px;
-}
-
-section[data-testid="stSidebar"] p, 
-section[data-testid="stSidebar"] li {
-    margin-bottom: 6px;
-}
-
-section[data-testid="stSidebar"] hr {
-    margin: 8px 0;
-}
-</style>
-""", unsafe_allow_html=True)
-
-
-
 
 # === SIDEBAR ===
 with st.sidebar:
     st.markdown("""
     <style>
-    .about-box {
-        padding: 20px;
-        border: 2px solid cyan;
+    section[data-testid="stSidebar"] {
+        border: 3px solid red;
         border-radius: 15px;
+        box-shadow:
+            0 0 15px red,
+            0 0 30px red,
+            0 0 45px red;
+        padding: 10px;
+        max-height: 100vh;
+        overflow: hidden;
+    }
+    .about-box {
+        padding: 15px;
+        border: 2px solid cyan;
+        border-radius: 10px;
         background: rgba(0, 0, 0, 0.5);
         box-shadow:
-            0 0 20px cyan,
-            0 0 40px cyan,
-            0 0 60px cyan,
-            inset 0 0 10px rgba(0,255,255,0.3);
+            0 0 15px cyan,
+            0 0 30px cyan,
+            0 0 45px cyan,
+            inset 0 0 8px rgba(0,255,255,0.3);
         transition: all 0.3s ease-in-out;
     }
     .about-box:hover {
         box-shadow:
-            0 0 30px cyan,
+            0 0 20px cyan,
+            0 0 40px cyan,
             0 0 60px cyan,
-            0 0 90px cyan,
-            inset 0 0 20px rgba(0,255,255,0.4);
+            inset 0 0 15px rgba(0,255,255,0.4);
     }
     </style>
 
     <div class="about-box">
-        <h2 style="color: cyan; text-align: center;">🎶 About This App</h2>
-        <p>
+        <h2 style="color: cyan; text-align: center; font-size: 18px;">🎶 About This App</h2>
+        <p style="font-size: 13px;">
         <strong>SJ Music Player</strong> is a neon-styled, club-vibe music player built with:
         </p>
-        <ul>
+        <ul style="font-size: 13px;">
             <li>🐍 <strong>Python 3</strong></li>
             <li>🎷 <strong>Streamlit</strong></li>
             <li>🖼️ <strong>Base64 Album Art Embedding</strong></li>
         </ul>
         <hr style="border: 1px solid cyan;">
-        <p>
+        <p style="font-size: 13px;">
         <strong>👨‍💻 Created by:</strong> <a href="https://www.linkedin.com/in/samar-abbas-773074278/" target="_blank" style="color: cyan;">Samar Abbas</a><br>
         <strong>📍 University of Narowal</strong><br>
         <strong>🧠 Role:</strong> Developer, Designer, and Innovator
         </p>
         <hr style="border: 1px solid cyan;">
-        <p style="font-style: italic;">💡 Built to feel like Spotify crashed into a Cyberpunk rave club.</p>
+        <p style="font-style: italic; font-size: 12px;">💡 Built to feel like Spotify crashed into a Cyberpunk rave club.</p>
     </div>
     """, unsafe_allow_html=True)
