@@ -187,42 +187,42 @@ st.markdown("""
     for i in range(100)
 ]) + "</div>", unsafe_allow_html=True)
 
-st.markdown(f"""
+st.markdown("""
 <style>
-.ray-overlay {{
+.ray-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 0;
-}}
+    z-index: 1;
+}
 
-.ray {{
+.ray {
     position: absolute;
-    top: -20%;
-    left: -20%;
-    width: 300%;
-    height: 300%;
-    background: radial-gradient(closest-side, rgba(255,255,255,0.15), transparent 80%);
-    transform: rotate(45deg);
-    animation: raysMove 10s linear infinite alternate;
-    mix-blend-mode: overlay;
-    opacity: 0.2;
-    filter: blur(60px);
-}}
+    top: -150px;
+    left: -150px;
+    width: 600px;
+    height: 600px;
+    background: conic-gradient(from 45deg, rgba(255,255,255,0.08) 0deg, transparent 30deg, rgba(255,255,255,0.08) 60deg, transparent 90deg);
+    filter: blur(50px);
+    opacity: 0.5;
+    transform: rotate(0deg);
+    animation: raySpin 30s linear infinite;
+}
 
-@keyframes raysMove {{
-    0% {{ transform: rotate(45deg) translateX(0px); }}
-    100% {{ transform: rotate(45deg) translateX(100px); }}
-}}
+@keyframes raySpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
 </style>
 
 <div class="ray-overlay">
     <div class="ray"></div>
 </div>
 """, unsafe_allow_html=True)
+
 
 
 st.markdown(f"<h4 style='text-align: center; color: cyan; margin-top: 10px; margin-bottom: 8px;'>🎵 Now Playing: {current_song}</h4>", unsafe_allow_html=True)
