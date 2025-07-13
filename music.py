@@ -219,61 +219,54 @@ section[data-testid="stSidebar"] {
     border: 3px solid red;
     border-radius: 20px;
     box-shadow: 0 0 20px red, 0 0 40px red, 0 0 60px red;
-    padding: 6px;
+    padding: 0;
     max-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    overflow: hidden;
 }
 
-/* ABOUT BOX */
 .about-box {
-    padding: 10px 8px;
+    padding: 20px;
+    height: 95vh; /* This is the key: stretching it down inside the sidebar */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
     border: 2px solid cyan;
     border-radius: 15px;
     background: rgba(0, 0, 0, 0.5);
     box-shadow: 0 0 20px cyan;
-    font-size: 13px;
-    line-height: 1.3;
+    font-size: 14px;
 }
 
 .about-box h2 {
-    font-size: 18px;
-    margin: 4px 0;
+    font-size: 20px;
+    margin: 8px 0;
 }
 
 .about-box p {
-    margin: 4px 0;
-}
-
-.about-box ul {
-    padding-left: 14px;
-}
-
-.about-box ul li {
-    margin: 2px 0;
-}
-
-.about-box hr {
     margin: 6px 0;
 }
 
-/* Responsive control */
+.about-box ul {
+    padding-left: 18px;
+}
+
+.about-box ul li {
+    margin: 4px 0;
+}
+
+.about-box hr {
+    margin: 8px 0;
+}
+
 @media screen and (max-width: 600px) {
     .about-box {
-        font-size: 12px;
-        padding: 8px 6px;
-    }
-    .about-box h2 {
-        font-size: 16px;
-    }
-    section[data-testid="stSidebar"] {
-        max-height: 100vh !important;
-        overflow: hidden !important;
+        height: 95vh;
+        font-size: 13px;
     }
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 with st.sidebar:
