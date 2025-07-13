@@ -219,47 +219,57 @@ section[data-testid="stSidebar"] {
     border: 3px solid red;
     border-radius: 20px;
     box-shadow: 0 0 20px red, 0 0 40px red, 0 0 60px red;
-    padding: 8px;
+    padding: 6px;
     max-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
 }
 
-/* Make about-box fit sidebar height better */
+/* ABOUT BOX */
 .about-box {
-    padding: 10px;
+    padding: 10px 8px;
     border: 2px solid cyan;
     border-radius: 15px;
     background: rgba(0, 0, 0, 0.5);
     box-shadow: 0 0 20px cyan;
-    font-size: 12px;
-    line-height: 1.2;
+    font-size: 13px;
+    line-height: 1.3;
 }
 
 .about-box h2 {
-    font-size: 16px;
-    margin: 6px 0;
+    font-size: 18px;
+    margin: 4px 0;
 }
 
-.about-box p,
-.about-box ul li {
+.about-box p {
     margin: 4px 0;
 }
 
 .about-box ul {
-    padding-left: 16px;
+    padding-left: 14px;
+}
+
+.about-box ul li {
+    margin: 2px 0;
 }
 
 .about-box hr {
     margin: 6px 0;
 }
 
-/* Ensure no scrollbars on mobile */
+/* Responsive control */
 @media screen and (max-width: 600px) {
+    .about-box {
+        font-size: 12px;
+        padding: 8px 6px;
+    }
+    .about-box h2 {
+        font-size: 16px;
+    }
     section[data-testid="stSidebar"] {
         max-height: 100vh !important;
-        overflow: auto !important;
+        overflow: hidden !important;
     }
 }
 </style>
