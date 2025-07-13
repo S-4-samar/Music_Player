@@ -1,7 +1,6 @@
 import os
 import streamlit as st
 import base64
-import speech_recognition as sr
 
 # === PAGE CONFIG ===
 st.set_page_config(page_title="🎷 Smart Music Player", layout="centered")
@@ -171,43 +170,46 @@ if not songs:
     st.error("❌ No MP3 files found in /songs folder.")
     st.stop()
 
-# === Voice Command Controls ===
+# === VOICE COMMAND VIA BROWSER ===
+st.markdown("## 🎙️ Voice Control (Browser-based)")
 
-def listen_for_command():
-    recognizer = sr.Recognizer()
-    with sr.Microphone() as source:
-        st.info("🎙️ Listening... Speak now!")
-        try:
-            audio = recognizer.listen(source, timeout=5)
-            command = recognizer.recognize_google(audio).lower()
-            st.success(f"✅ You said: {command}")
-            return command
-        except sr.UnknownValueError:
-            st.warning("Sorry, could not understand.")
-        except sr.WaitTimeoutError:
-            st.warning("Listening timed out.")
-        except Exception as e:
-            st.error(f"Error: {e}")
-    return ""
+components.html(f"""
+    <button onclick="startListening()" style="padding: 10px; font-size: 18px; border-radius: 8px;">🎙️ Start Voice Command</button>
+    <p id="result" style="font-weight: bold; font-size: 20px;"></p>
 
-if st.button("🎙️ Listen for Command"):
-    command = listen_for_command()
-    if "next" in command:
+    <script>
+    function startListening() {{
+        var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.lang = 'en-US';
+        recognition.start();
+        recognition.onresult = function(event) {{
+            var command = event.results[0][0].transcript;
+            document.getElementById('result').innerText = 'You said: ' + command;
+            window.location.search = '?command=' + encodeURIComponent(command);
+        }};
+    }}
+    </script>
+""", height=200)
+
+# === HANDLE RECOGNIZED COMMAND ===
+command = st.experimental_get_query_params().get("command", [None])[0]
+
+if command:
+    st.success(f"✅ Recognized Command: {command.lower()}")
+    if "next" in command.lower():
         st.session_state.song_index = (st.session_state.song_index + 1) % len(songs)
-        st.session_state.is_playing = True
         st.rerun()
-    elif "previous" in command or "prev" in command:
+    elif "previous" in command.lower() or "prev" in command.lower():
         st.session_state.song_index = (st.session_state.song_index - 1) % len(songs)
+        st.rerun()
+    elif "play" in command.lower():
         st.session_state.is_playing = True
         st.rerun()
-    elif "stop" in command or "pause" in command:
+    elif "stop" in command.lower() or "pause" in command.lower():
         st.session_state.is_playing = False
         st.rerun()
-    elif "play" in command:
-        st.session_state.is_playing = True
-        st.rerun()
     else:
-        st.info("No recognized command like play, next, previous, stop.")
+        st.info("Unrecognized command.")
 
 # === CURRENT SONG ===
 current_song = songs[st.session_state.song_index]
