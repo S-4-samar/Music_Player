@@ -1,3 +1,4 @@
+ 
 import os
 import streamlit as st
 import base64
@@ -65,31 +66,13 @@ if os.path.exists(album_art_path):
     img_data = base64.b64encode(open(album_art_path, "rb").read()).decode()
 
 st.markdown(f"""
-<div style="position: relative; width: 220px; height: 220px; margin: 0 auto;">
-    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; overflow: hidden;
-        border: 6px solid rgba(0,255,255,0.3); box-shadow: 0 0 30px rgba(0,255,255,0.6); animation: spin 8s linear infinite;">
-        <img src="data:image/png;base64,{img_data}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block;">
-    </div>
-    <div class="sun-rays"></div>
+<div style="width: 220px; height: 220px; margin: 0 auto; border-radius: 50%; overflow: hidden;
+    border: 6px solid rgba(0,255,255,0.3); box-shadow: 0 0 30px rgba(0,255,255,0.6);
+    animation: spin 8s linear infinite;">
+    <img src="data:image/png;base64,{img_data}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block;">
 </div>
 <style>
 @keyframes spin {{
-    from {{ transform: rotate(0deg); }}
-    to {{ transform: rotate(360deg); }}
-}}
-.sun-rays {{
-    position: absolute;
-    top: -100px;
-    left: -100px;
-    width: 400px;
-    height: 400px;
-    background: conic-gradient(from 45deg, rgba(255,0,0,0.1) 0deg, transparent 60deg, rgba(255,0,0,0.1) 120deg, transparent 180deg);
-    filter: blur(60px);
-    opacity: 0.4;
-    border-radius: 50%;
-    animation: rays-move 8s linear infinite;
-}}
-@keyframes rays-move {{
     from {{ transform: rotate(0deg); }}
     to {{ transform: rotate(360deg); }}
 }}
@@ -243,38 +226,6 @@ section[data-testid="stSidebar"] {
 </style>
 """, unsafe_allow_html=True)
 
-st.markdown("""
-<style>
-section[data-testid="stSidebar"] {
-    max-height: 100vh;
-    overflow: hidden;
-}
-
-/* Make sidebar content fit better */
-section[data-testid="stSidebar"] .about-box {
-    padding: 10px;
-    font-size: 14px;
-}
-
-section[data-testid="stSidebar"] ul {
-    padding-left: 16px;
-}
-
-section[data-testid="stSidebar"] h2 {
-    font-size: 18px;
-}
-
-section[data-testid="stSidebar"] p, 
-section[data-testid="stSidebar"] li {
-    margin-bottom: 6px;
-}
-
-section[data-testid="stSidebar"] hr {
-    margin: 8px 0;
-}
-</style>
-""", unsafe_allow_html=True)
-
 with st.sidebar:
     st.markdown("""
     <style>
@@ -298,24 +249,20 @@ with st.sidebar:
             inset 0 0 20px rgba(0,255,255,0.4);
     }
     </style>
-
     <div class="about-box">
         <h2 style="color: cyan; text-align: center;">🎶 About This App</h2>
-        <p>
-        <strong>Hyper Music Player</strong> is a neon-styled, club-vibe music player built with:
-        </p>
+        <p><strong>SJ Music Player</strong> is a neon-styled, club-vibe music player built with:</p>
         <ul>
             <li>🐍 <strong>Python 3</strong></li>
             <li>🎷 <strong>Streamlit</strong></li>
             <li>🖼️ <strong>Base64 Album Art Embedding</strong></li>
         </ul>
         <hr style="border: 1px solid cyan;">
-        <p>
-        <strong>👨‍💻 Created by:</strong> <a href="https://www.linkedin.com/in/samar-abbas-773074278/" target="_blank" style="color: cyan;">Samar Abbas</a><br>
+        <p><strong>👨‍💻 Created by:</strong> <a href="https://www.linkedin.com/in/samar-abbas-95a235287" target="_blank" style="color: cyan;">Samar Abbas</a><br>
         <strong>📍 University of Narowal</strong><br>
-        <strong>🧠 Role:</strong> Developer, Designer, and Innovator
-        </p>
+        <strong>👨🏽‍💻 Role:</strong> Developer, Designer, and Innovator</p>
         <hr style="border: 1px solid cyan;">
         <p style="font-style: italic;">💡 Built to feel like Spotify crashed into a Cyberpunk rave club.</p>
     </div>
     """, unsafe_allow_html=True)
+
