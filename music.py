@@ -212,6 +212,27 @@ if command:
     else:
         st.info("Unrecognized command.")
 
+# === Query Param Command Handling ===
+command = st.query_params.get("command", None)
+
+if command and not st.session_state.processed:
+    st.session_state.processed = True  # Avoid reprocessing on rerun
+
+    command = command.lower()
+    if "next" in command:
+        st.session_state.song_index = (st.session_state.song_index + 1) % len(songs)
+        st.rerun()
+    elif "previous" in command or "prev" in command:
+        st.session_state.song_index = (st.session_state.song_index - 1) % len(songs)
+        st.rerun()
+    elif "play" in command:
+        st.session_state.is_playing = True
+        st.rerun()
+    elif "stop" in command or "pause" in command:
+        st.session_state.is_playing = False
+        st.rerun()
+
+
 # === CURRENT SONG ===
 current_song = songs[st.session_state.song_index]
 audio_file_path = os.path.join(songs_dir, current_song)
