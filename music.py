@@ -1,6 +1,44 @@
 import os
 import streamlit as st
 import base64
+import speech_recognition as sr
+
+def listen_for_command():
+    recognizer = sr.Recognizer()
+    with sr.Microphone() as source:
+        st.info("🎙️ Listening... Speak now!")
+        try:
+            audio = recognizer.listen(source, timeout=5)
+            command = recognizer.recognize_google(audio).lower()
+            st.success(f"✅ You said: {command}")
+            return command
+        except sr.UnknownValueError:
+            st.warning("Sorry, could not understand.")
+        except sr.WaitTimeoutError:
+            st.warning("Listening timed out.")
+        except Exception as e:
+            st.error(f"Error: {e}")
+    return ""
+
+if st.button("🎙️ Listen for Command"):
+    command = listen_for_command()
+    if "next" in command:
+        st.session_state.song_index = (st.session_state.song_index + 1) % len(songs)
+        st.session_state.is_playing = True
+        st.rerun()
+    elif "previous" in command or "prev" in command:
+        st.session_state.song_index = (st.session_state.song_index - 1) % len(songs)
+        st.session_state.is_playing = True
+        st.rerun()
+    elif "stop" in command or "pause" in command:
+        st.session_state.is_playing = False
+        st.rerun()
+    elif "play" in command:
+        st.session_state.is_playing = True
+        st.rerun()
+    else:
+        st.info("No recognized command like play, next, previous, stop.")
+
 
 # === PAGE CONFIG ===
 st.set_page_config(page_title="🎷 Smart Music Player", layout="centered")
