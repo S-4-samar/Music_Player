@@ -65,13 +65,31 @@ if os.path.exists(album_art_path):
     img_data = base64.b64encode(open(album_art_path, "rb").read()).decode()
 
 st.markdown(f"""
-<div style="width: 220px; height: 220px; margin: 0 auto; border-radius: 50%; overflow: hidden;
-    border: 6px solid rgba(0,255,255,0.3); box-shadow: 0 0 30px rgba(0,255,255,0.6);
-    animation: spin 8s linear infinite;">
-    <img src="data:image/png;base64,{img_data}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block;">
+<div style="position: relative; width: 220px; height: 220px; margin: 0 auto;">
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; overflow: hidden;
+        border: 6px solid rgba(0,255,255,0.3); box-shadow: 0 0 30px rgba(0,255,255,0.6); animation: spin 8s linear infinite;">
+        <img src="data:image/png;base64,{img_data}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block;">
+    </div>
+    <div class="sun-rays"></div>
 </div>
 <style>
 @keyframes spin {{
+    from {{ transform: rotate(0deg); }}
+    to {{ transform: rotate(360deg); }}
+}}
+.sun-rays {{
+    position: absolute;
+    top: -100px;
+    left: -100px;
+    width: 400px;
+    height: 400px;
+    background: conic-gradient(from 45deg, rgba(255,0,0,0.1) 0deg, transparent 60deg, rgba(255,0,0,0.1) 120deg, transparent 180deg);
+    filter: blur(60px);
+    opacity: 0.4;
+    border-radius: 50%;
+    animation: rays-move 8s linear infinite;
+}}
+@keyframes rays-move {{
     from {{ transform: rotate(0deg); }}
     to {{ transform: rotate(360deg); }}
 }}
@@ -186,44 +204,6 @@ st.markdown("""
     f'<div class="star" style="top:{i * 2 % 100}vh; left:{(i * i * 3) % 100}vw; animation-delay:{(i % 10) * 0.2}s;"></div>'
     for i in range(100)
 ]) + "</div>", unsafe_allow_html=True)
-
-st.markdown("""
-<style>
-.ray-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.ray {
-    position: absolute;
-    top: -150px;
-    left: -150px;
-    width: 600px;
-    height: 600px;
-    background: conic-gradient(from 45deg, rgba(255,255,255,0.08) 0deg, transparent 30deg, rgba(255,255,255,0.08) 60deg, transparent 90deg);
-    filter: blur(50px);
-    opacity: 0.5;
-    transform: rotate(0deg);
-    animation: raySpin 30s linear infinite;
-}
-
-@keyframes raySpin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-</style>
-
-<div class="ray-overlay">
-    <div class="ray"></div>
-</div>
-""", unsafe_allow_html=True)
-
-
 
 st.markdown(f"<h4 style='text-align: center; color: cyan; margin-top: 10px; margin-bottom: 8px;'>🎵 Now Playing: {current_song}</h4>", unsafe_allow_html=True)
 
