@@ -216,55 +216,55 @@ with st.expander("📂 Playlist"):
 st.markdown("""
 <style>
 section[data-testid="stSidebar"] {
-    border: 2px solid red;
-    border-radius: 12px;
-    box-shadow: 0 0 20px red;
-    padding: 6px;
+    border: 3px solid red;
+    border-radius: 20px;
+    box-shadow: 0 0 20px red, 0 0 40px red, 0 0 60px red;
+    padding: 8px;
     max-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
 }
 
+/* Make about-box fit sidebar height better */
 .about-box {
-    padding: 8px;
-    border: 1px solid cyan;
-    border-radius: 10px;
-    background: rgba(0, 0, 0, 0.4);
-    box-shadow: 0 0 12px cyan;
-    font-size: 11px;
+    padding: 10px;
+    border: 2px solid cyan;
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 20px cyan;
+    font-size: 12px;
     line-height: 1.2;
 }
 
 .about-box h2 {
-    font-size: 13px;
-    margin-bottom: 4px;
+    font-size: 16px;
+    margin: 6px 0;
 }
 
 .about-box p,
 .about-box ul li {
-    margin: 2px 0;
-}
-
-.about-box ul {
-    padding-left: 14px;
-}
-
-.about-box hr {
     margin: 4px 0;
 }
 
+.about-box ul {
+    padding-left: 16px;
+}
+
+.about-box hr {
+    margin: 6px 0;
+}
+
+/* Ensure no scrollbars on mobile */
 @media screen and (max-width: 600px) {
-    .about-box {
-        font-size: 10px;
-        padding: 6px;
-    }
-    .about-box h2 {
-        font-size: 12px;
+    section[data-testid="stSidebar"] {
+        max-height: 100vh !important;
+        overflow: auto !important;
     }
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 with st.sidebar:
     st.markdown("""
