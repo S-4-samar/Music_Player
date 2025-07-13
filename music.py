@@ -13,7 +13,7 @@ album_art_path = os.path.join(base_dir, "static", "album_art.png")
 if os.path.exists(album_art_path):
     img_data = base64.b64encode(open(album_art_path, "rb").read()).decode()
 
-# === ROTATING ALBUM ART ===
+# === ROTATING ALBUM ART WITH RED BLINK ===
 st.markdown(f"""
 <div style="
     width: 180px;
@@ -22,8 +22,10 @@ st.markdown(f"""
     border-radius: 50%;
     overflow: hidden;
     border: 4px solid rgba(0,255,255,0.3);
-    box-shadow: 0 0 20px rgba(0,255,255,0.6);
-    animation: spin 8s linear infinite;">
+    box-shadow: 
+        0 0 20px rgba(0,255,255,0.6),
+        0 0 30px red;
+    animation: spin 8s linear infinite, blink-red 2s infinite alternate;">
     <img src="data:image/png;base64,{img_data}" style="
         width: 100%;
         height: 100%;
@@ -37,8 +39,13 @@ st.markdown(f"""
     from {{ transform: rotate(0deg); }}
     to {{ transform: rotate(360deg); }}
 }}
+@keyframes blink-red {{
+    0% {{ box-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px red; }}
+    100% {{ box-shadow: 0 0 2px red, 0 0 5px red, 0 0 10px red; }}
+}}
 </style>
 """, unsafe_allow_html=True)
+
 
 # === SESSION STATE INIT ===
 if "song_index" not in st.session_state:
