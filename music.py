@@ -216,53 +216,72 @@ with st.expander("📂 Playlist"):
 st.markdown("""
 <style>
 section[data-testid="stSidebar"] {
-    border: 3px solid red;
-    border-radius: 20px;
-    box-shadow: 0 0 20px red, 0 0 40px red, 0 0 60px red;
-    padding: 10px;
+    border: 2px solid red;
+    border-radius: 12px;
+    box-shadow: 0 0 20px red;
+    padding: 6px;
     max-height: 100vh;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.about-box {
+    padding: 8px;
+    border: 1px solid cyan;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 12px cyan;
+    font-size: 11px;
+    line-height: 1.2;
+}
+
+.about-box h2 {
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+.about-box p,
+.about-box ul li {
+    margin: 2px 0;
+}
+
+.about-box ul {
+    padding-left: 14px;
+}
+
+.about-box hr {
+    margin: 4px 0;
+}
+
+@media screen and (max-width: 600px) {
+    .about-box {
+        font-size: 10px;
+        padding: 6px;
+    }
+    .about-box h2 {
+        font-size: 12px;
+    }
 }
 </style>
 """, unsafe_allow_html=True)
 
 with st.sidebar:
     st.markdown("""
-    <style>
-    .about-box {
-        padding: 20px;
-        border: 2px solid cyan;
-        border-radius: 15px;
-        background: rgba(0, 0, 0, 0.5);
-        box-shadow:
-            0 0 20px cyan,
-            0 0 40px cyan,
-            0 0 60px cyan,
-            inset 0 0 10px rgba(0,255,255,0.3);
-        transition: all 0.3s ease-in-out;
-    }
-    .about-box:hover {
-        box-shadow:
-            0 0 30px cyan,
-            0 0 60px cyan,
-            0 0 90px cyan,
-            inset 0 0 20px rgba(0,255,255,0.4);
-    }
-    </style>
     <div class="about-box">
         <h2 style="color: cyan; text-align: center;">🎶 About This App</h2>
         <p><strong>SJ Music Player</strong> is a neon-styled, club-vibe music player built with:</p>
         <ul>
-            <li>🐍 <strong>Python 3</strong></li>
-            <li>🎷 <strong>Streamlit</strong></li>
-            <li>🖼️ <strong>Base64 Album Art Embedding</strong></li>
+            <li>🐍 Python 3</li>
+            <li>🎷 Streamlit</li>
+            <li>🖼️ Base64 Album Art</li>
         </ul>
         <hr style="border: 1px solid cyan;">
         <p><strong>👨‍💻 Created by:</strong> <a href="https://www.linkedin.com/in/samar-abbas-95a235287" target="_blank" style="color: cyan;">Samar Abbas</a><br>
-        <strong>📍 University of Narowal</strong><br>
-        <strong>👨🏽‍💻 Role:</strong> Developer, Designer, and Innovator</p>
+        📍 University of Narowal<br>
+        👨🏽‍💻 Developer, Designer</p>
         <hr style="border: 1px solid cyan;">
-        <p style="font-style: italic;">💡 Built to feel like Spotify crashed into a Cyberpunk rave club.</p>
+        <p style="font-style: italic;">💡 Feels like Spotify crashed into a Cyberpunk rave club.</p>
     </div>
     """, unsafe_allow_html=True)
 
